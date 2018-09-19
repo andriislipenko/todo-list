@@ -1,3 +1,21 @@
-<p>
-  todo works!
-</p>
+<div class='container'>
+  <div class="p-grid p-justify-center">
+    <div class="p-col">
+      <h3>Enter your note</h3>
+    </div>
+  </div>
+
+  <div class="p-grid p-justify-between">
+    <div class="p-col"></div>
+    <div class="p-col">
+      <div class="ui-inputgroup">
+        <input #noteInput type="text" pInputText>
+        <button 
+          pButton type="button" icon="fa fa-save"
+          (onclick)="saveNote(noteInput.value); noteInput.value=''">
+        </button>
+      </div>
+    </div>
+    <div class="p-col"></div>
+  </div>  
+</div>
