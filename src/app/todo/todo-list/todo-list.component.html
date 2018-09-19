@@ -18,11 +18,20 @@
     </div>
 
     <div class="p-col-1">
-
+        <button 
+          pButton type="button" class="fa fa-edit"
+          (click)="editTodo(todo)">
+        </button>
     </div>
 
     <div class="p-col-1">
-
+        <p-confirmDialog key="todo.id" header="Confirmation" icon="pi pi-exclamation-triangle" width="425">
+          
+        </p-confirmDialog>
+        <button 
+          pButton type="button" class="fa fa-trash"
+          (click)="deleteTodo(todo)">
+        </button>
     </div>
   </div>
 </div>

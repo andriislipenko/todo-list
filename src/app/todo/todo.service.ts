@@ -25,6 +25,10 @@ export class TodoService {
     this.keepSorted();
   }
 
+  deleteTodo(todo: Todo): void {
+    this.todoList.splice(this.todoList.indexOf(todo), 1);
+  }
+
   private keepSorted(): void {
     this.todoList = this.todoList.sort((a, b) => {
       return b.lastEditDate.getTime() - a.lastEditDate.getTime();

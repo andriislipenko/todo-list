@@ -4,12 +4,14 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 
 import {CheckboxModule} from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   imports: [
     CommonModule,
     CheckboxModule,
-    FormsModule
+    FormsModule,
+    ConfirmDialogModule
   ],
   declarations: [
     TodoListComponent
