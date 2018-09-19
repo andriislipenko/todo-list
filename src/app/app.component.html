@@ -7,16 +7,22 @@
     
     <div class="p-grid text-center">
         <div class="p-col">
-            <button pButton label="ToDo" class="ui-button-raised ui-button-secondary"></button>
+            <button 
+                pButton label="ToDo" 
+                class="ui-button-raised ui-button-secondary"
+                (click)='toTodo()'></button>
         </div>
         <div class="p-col">
-            <button pButton label="Weather" class="ui-button-raised ui-button-secondary"></button>
+            <button 
+                pButton label="Weather" 
+                class="ui-button-raised ui-button-secondary"
+                (click)='toWeather()'></button>
         </div>
     </div>
 
     <div class="p-grid text-center">
         <div class="p-col">
-            <app-todo></app-todo>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

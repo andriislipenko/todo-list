@@ -1,0 +1,28 @@
+<div class="container" *ngIf="todoList && todoList.length">
+  <div 
+    class="p-grid p-justify-center todo-container" 
+    *ngFor="let todo of todoList"
+    [ngClass]="{'checked': todo.isDone}"
+    >
+    
+    <div class="p-col-1">
+      <input type="checkbox" class="ui-chkbox" [(ngModel)]="todo.isDone">
+    </div>
+    
+    <div class="p-col-7 todo-text">
+      {{todo.text}} 
+    </div>
+    
+    <div class="p-col-2">
+      {{todo.stringDate}} 
+    </div>
+
+    <div class="p-col-1">
+
+    </div>
+
+    <div class="p-col-1">
+
+    </div>
+  </div>
+</div>
