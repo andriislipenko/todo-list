@@ -3,7 +3,6 @@ import { TodoService } from '../todo.service';
 import { Todo } from '../todo';
 
 import { ConfirmationService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-todo-list',
@@ -17,7 +16,6 @@ export class TodoListComponent implements OnInit {
     constructor(
         private todoService: TodoService,
         private confService: ConfirmationService,
-        private router: Router
     ) { }
 
     ngOnInit() {
