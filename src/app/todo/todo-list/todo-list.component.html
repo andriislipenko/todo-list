@@ -1,62 +1,48 @@
 <div class="container" *ngIf="todoList && todoList.length">
-  <div 
-    class="p-grid p-justify-center todo-container" 
-    *ngFor="let todo of todoList"
-    [ngClass]="{'checked': todo.isDone}"
-    >
-    
-    <ng-container *ngIf="todoOnEditId === todo.id; then onEdit; else regular">
-    </ng-container>
+    <div class="p-grid p-justify-center todo-container" *ngFor="let todo of todoList" [ngClass]="{'checked': todo.isDone}">
 
-    <ng-template #regular>
-      <div class="p-col-1">
-        <input type="checkbox" class="ui-chkbox" [(ngModel)]="todo.isDone">
-      </div>
-      
-      <div class="p-col-7 todo-text">
-        {{todo.text}} 
-      </div>
-      
-      <div class="p-col-2">
-        {{todo.stringDate}} 
-      </div>
-  
-      <div class="p-col-1">
-          <button 
-            pButton type="button" icon="fa fa-edit"
-            (click)="editTodo(todo.id)">
-          </button>
-      </div>
-  
-      <div class="p-col-1">
-          <p-confirmDialog key="{{todo.id}}" header="Confirmation"></p-confirmDialog>
-          <button 
-            class='ui-button-danger'
-            pButton type="button" icon="fa fa-trash"
-            (click)="deleteTodo(todo)">
-          </button>
-      </div>
-    </ng-template>
+        <ng-container *ngIf="todoOnEditId === todo.id; then onEdit; else regular">
+        </ng-container>
 
-    <ng-template #onEdit>
-      <div class="p-col-10">
-        <input #editField type="text" pInputText value={{todo.text}}>
-      </div>
+        <ng-template #regular>
+            <div class="p-col-1">
+                <input type="checkbox" class="ui-chkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
+            </div>
 
-      <div class="p-col-1">
-        <button 
-          pButton type="button" icon="fa fa-check"
-          (click)="updateTodo(editField.value)">
-        </button>
-      </div>
+            <div class="p-col-7 todo-text">
+                {{todo.text}}
+            </div>
 
-      <div class="p-col-1">
-        <button 
-          class='ui-button-danger'
-          pButton type="button" icon="fa fa-close"
-          (click)="cancelEditing()">
-        </button>
-      </div>
-    </ng-template>
-  </div>
+            <div class="p-col-2">
+                {{todo.lastEditDate | formateDate}}
+            </div>
+
+            <div class="p-col-1">
+                <button pButton type="button" icon="fa fa-edit" (click)="editTodo(todo.id)">
+                </button>
+            </div>
+
+            <div class="p-col-1">
+                <p-confirmDialog key="{{todo.id}}" header="Confirmation"></p-confirmDialog>
+                <button class='ui-button-danger' pButton type="button" icon="fa fa-trash" (click)="deleteTodo(todo)">
+                </button>
+            </div>
+        </ng-template>
+
+        <ng-template #onEdit>
+            <div class="p-col-10">
+                <input #editField type="text" pInputText value={{todo.text}}>
+            </div>
+
+            <div class="p-col-1">
+                <button pButton type="button" icon="fa fa-check" (click)="updateTodo(editField.value)">
+                </button>
+            </div>
+
+            <div class="p-col-1">
+                <button class='ui-button-danger' pButton type="button" icon="fa fa-close" (click)="cancelEditing()">
+                </button>
+            </div>
+        </ng-template>
+    </div>
 </div>

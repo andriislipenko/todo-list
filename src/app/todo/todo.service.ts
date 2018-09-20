@@ -1,50 +1,76 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnChanges } from '@angular/core';
 import { Todo } from './todo';
 
-const testTodo: Todo = new Todo('testChecked');
-testTodo.isDone = true;
-
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TodoService {
-  todoList: Todo[] = [
-    new Todo('test1'),
-    testTodo
-  ];
+    todoList: Todo[] = [];
 
-  constructor() { }
+    constructor() { }
 
-  getTodoList(): Todo[] {
-    return this.todoList;
-  }
+    getTodoList(): Todo[] {
+        const todos = localStorage.getItem('todos');
 
-  saveTodo(text: string): void {
-    this.todoList.unshift(new Todo(text));
+        if (todos && todos.length) {
+            this.todoList = this.parseTodos(todos);
+        }
 
-    this.keepSorted();
-  }
+        return this.todoList;
+    }
 
-  updateTodo(id: string, text: string) {
-    const todo = this.getTodo(id);
+    saveTodo(text: string): void {
+        if (text.length) {
+            this.todoList.unshift(new Todo(text));
+            this.saveTodosToLocalStorage();
 
-    todo.text = text;
-    todo.lastEditDate = new Date();
+            this.keepSorted();
+        }
+    }
 
-    this.keepSorted();
-  }
+    updateTodo(id: string, text: string) {
+        if (text.length) {
+            const todo = this.getTodo(id);
 
-  deleteTodo(todo: Todo): void {
-    this.todoList.splice(this.todoList.indexOf(todo), 1);
-  }
+            todo.text = text;
+            todo.lastEditDate = new Date();
 
-  private keepSorted(): void {
-    this.todoList = this.todoList.sort((a, b) => {
-      return b.lastEditDate.getTime() - a.lastEditDate.getTime();
-    });
-  }
+            this.saveTodosToLocalStorage();
 
-  getTodo(id: string) {
-    return this.todoList.find( el => el.id === id );
-  }
+            this.keepSorted();
+        }
+    }
+
+    deleteTodo(todo: Todo): void {
+        this.todoList.splice(this.todoList.indexOf(todo), 1);
+        this.saveTodosToLocalStorage();
+    }
+
+    getTodo(id: string) {
+        return this.todoList.find(el => el.id === id);
+    }
+
+    toggleDone(todo: Todo) {
+        todo.isDone = !todo.isDone;
+        this.saveTodosToLocalStorage();
+    }
+
+    private saveTodosToLocalStorage(): void {
+        localStorage.setItem('todos', JSON.stringify(this.todoList));
+    }
+
+    private parseTodos(todos: string) {
+        const res = JSON.parse(todos);
+        for (const todo of res) {
+            todo.lastEditDate = new Date(todo.lastEditDate);
+        }
+
+        return res;
+    }
+
+    private keepSorted(): void {
+        this.todoList = this.todoList.sort((a, b) => {
+            return b.lastEditDate.getTime() - a.lastEditDate.getTime();
+        });
+    }
 }

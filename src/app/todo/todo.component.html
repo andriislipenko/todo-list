@@ -1,22 +1,20 @@
 <div class='container'>
-  <div class="p-grid p-justify-center">
-    <div class="p-col">
-      <h3>Enter what to do</h3>
+    <div class="p-grid p-justify-center">
+        <div class="p-col">
+            <h3>Enter what to do</h3>
+        </div>
     </div>
-  </div>
 
-  <div class="p-grid p-justify-between">
-    <div class="p-col">
-      <div class="ui-inputgroup justify-center">
-        <input #noteInput type="text" pInputText>
-        <button 
-          pButton type="button" icon="fa fa-save"
-          (click)="saveTodo(noteInput.value); noteInput.value=''">
-        </button>
-      </div>
+    <div class="p-grid p-justify-between">
+        <div class="p-col">
+            <div class="ui-inputgroup justify-center">
+                <input #noteInput type="text" pInputText>
+                <button pButton type="button" icon="fa fa-save" (click)="saveTodo(noteInput.value); noteInput.value=''">
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <app-todo-list></app-todo-list>
-  
+
+    <app-todo-list></app-todo-list>
+
 </div>

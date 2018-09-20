@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormateDatePipe } from './formate-date.pipe';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   declarations: [
-    TodoListComponent
+    TodoListComponent,
+    FormateDatePipe
   ],
   exports: [
     TodoListComponent
