@@ -1,4 +1,4 @@
-import { Injectable, OnChanges } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Todo } from './todo';
 
 @Injectable({
@@ -53,6 +53,15 @@ export class TodoService {
     toggleDone(todo: Todo) {
         todo.isDone = !todo.isDone;
         this.saveTodosToLocalStorage();
+        this.keepSorted();
+    }
+
+    count(): number {
+        if (!this.todoList.length) {
+            return this.getTodoList().length;
+        }
+
+        return this.todoList.length;
     }
 
     private saveTodosToLocalStorage(): void {
@@ -71,6 +80,8 @@ export class TodoService {
     private keepSorted(): void {
         this.todoList = this.todoList.sort((a, b) => {
             return b.lastEditDate.getTime() - a.lastEditDate.getTime();
+        }).sort((a, b) => {
+            return +a.isDone - +b.isDone;
         });
     }
 }

@@ -5,11 +5,12 @@
         </div>
     </div>
 
-    <div class="p-grid p-justify-between">
+    <div class="p-grid justify-center">
         <div class="p-col">
             <div class="ui-inputgroup justify-center">
                 <input #noteInput type="text" pInputText>
-                <button pButton type="button" icon="fa fa-save" (click)="saveTodo(noteInput.value); noteInput.value=''">
+                <button pButton type="button" icon="fa fa-save"
+                    (click)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()">
                 </button>
             </div>
         </div>

@@ -8,23 +8,19 @@ import { AppComponent } from './app.component';
 import { RoutingModule } from './routing.module';
 import { TodoModule } from './todo/todo.module';
 import { TodoComponent } from './todo/todo.component';
-
-const routes: Routes = [
-  { path: 'todo', component: TodoComponent },
-  { path: '', redirectTo: 'todo', pathMatch: 'full'}
-];
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoComponent
+    TodoComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
     TodoModule,
-    ButtonModule,
-    RouterModule.forRoot(routes)
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./todo-list.component.css'],
     providers: [ConfirmationService]
 })
-export class TodoListComponent implements OnInit, OnDestroy {
+export class TodoListComponent implements OnInit {
     todoOnEditId: string;
     todoList: Todo[];
     constructor(
@@ -22,10 +22,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.todoList = this.todoService.getTodoList();
-    }
-
-    ngOnDestroy() {
-        this.todoService.saveTodosToLocalStorage();
     }
 
     editTodo(id: string) {
