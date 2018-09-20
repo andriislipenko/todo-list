@@ -3,6 +3,7 @@ import { TodoService } from '../todo.service';
 import { Todo } from '../todo';
 
 import { ConfirmationService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,27 +12,42 @@ import { ConfirmationService } from 'primeng/api';
   providers: [ConfirmationService]
 })
 export class TodoListComponent implements OnInit {
+  todoOnEditId: string;
   todoList: Todo[];
   constructor(
     private todoService: TodoService,
-    private confService: ConfirmationService
+    private confService: ConfirmationService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.todoList = this.todoService.getTodoList();
   }
 
-  toggleDone(todo: Todo): void {
-    todo.isDone = !todo.isDone;
+  editTodo(id: string) {
+    this.todoOnEditId = id;
+  }
+
+  updateTodo(text: string): void {
+    this.todoService.updateTodo(this.todoOnEditId, text);
+    this.cancelEditing();
   }
 
   deleteTodo(todo): void {
     this.confService.confirm({
       message: 'Are you shure to delete this ToDo item?',
-      key: `${todo.id}`,
+      key: todo.id,
       accept: () => {
         this.todoService.deleteTodo(todo);
       }
     });
+  }
+
+  toggleDone(todo: Todo): void {
+    todo.isDone = !todo.isDone;
+  }
+
+  cancelEditing() {
+    this.todoOnEditId = '';
   }
 }

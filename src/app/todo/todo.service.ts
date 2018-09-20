@@ -19,8 +19,17 @@ export class TodoService {
     return this.todoList;
   }
 
-  saveTodoItem(text: string): void {
+  saveTodo(text: string): void {
     this.todoList.unshift(new Todo(text));
+
+    this.keepSorted();
+  }
+
+  updateTodo(id: string, text: string) {
+    const todo = this.getTodo(id);
+
+    todo.text = text;
+    todo.lastEditDate = new Date();
 
     this.keepSorted();
   }
@@ -33,5 +42,9 @@ export class TodoService {
     this.todoList = this.todoList.sort((a, b) => {
       return b.lastEditDate.getTime() - a.lastEditDate.getTime();
     });
+  }
+
+  getTodo(id: string) {
+    return this.todoList.find( el => el.id === id );
   }
 }

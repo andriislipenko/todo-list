@@ -13,7 +13,7 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveTodoItem(text: string): void {
-    this.todoService.saveTodoItem(text);
+  saveTodo(text: string): void {
+    this.todoService.saveTodo(text);
   }
 }
