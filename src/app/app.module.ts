@@ -9,6 +9,7 @@ import { RoutingModule } from './routing.module';
 import { TodoModule } from './todo/todo.module';
 import { TodoComponent } from './todo/todo.component';
 import { WeatherComponent } from './weather/weather.component';
+import { WeatherModule } from './weather/weather.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { WeatherComponent } from './weather/weather.component';
     BrowserModule,
     RoutingModule,
     TodoModule,
+    WeatherModule,
     ButtonModule
   ],
   providers: [],
