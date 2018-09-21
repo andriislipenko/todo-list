@@ -15,6 +15,7 @@ export class TodoService {
         if (todos && todos.length) {
             this.todoList = this.parseTodos(todos);
         }
+        this.keepSorted();
 
         return this.todoList;
     }
