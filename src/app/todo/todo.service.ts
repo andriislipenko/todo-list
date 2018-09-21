@@ -5,17 +5,17 @@ import { Todo } from './todo';
     providedIn: 'root'
 })
 export class TodoService {
-    todoList: Todo[] = [];
+    todoList: Todo[];
 
     constructor() { }
 
     getTodoList(): Todo[] {
         const todos = localStorage.getItem('todos');
 
-        if (todos && todos.length) {
+        if (todos) {
             this.todoList = this.parseTodos(todos);
+            this.keepSorted();
         }
-        this.keepSorted();
 
         return this.todoList;
     }
@@ -58,7 +58,7 @@ export class TodoService {
     }
 
     count(): number {
-        if (!this.todoList.length) {
+        if (!this.todoList) {
             return this.getTodoList().length;
         }
 

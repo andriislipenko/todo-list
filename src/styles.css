@@ -17,3 +17,11 @@ h3 {
     text-align: center;
 }
 
+.justify-center {
+    justify-content: center;
+}
+
+.v-align-center {
+    display: flex;
+    align-items: flex-end;
+}
