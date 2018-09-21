@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
 import { Weather, FiveDaysWeather } from './weather';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
     selector: 'app-weather',
@@ -9,6 +10,10 @@ import { Weather, FiveDaysWeather } from './weather';
 })
 export class WeatherComponent implements OnInit {
     weather: Weather;
+
+    weather$: Observable<string>;
+    private searchStr = new Subject<string>();
+
     fiveDaysWeather: FiveDaysWeather = new FiveDaysWeather();
     constructor(
         private weatherService: WeatherService

@@ -5,7 +5,7 @@ import { Todo } from './todo';
     providedIn: 'root'
 })
 export class TodoService {
-    todoList: Todo[];
+    todoList: Todo[] = [];
 
     constructor() { }
 
