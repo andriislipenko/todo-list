@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './weather.component';
 import { WeatherDatePipe } from './weather-date.pipe';
-import { CitySearchComponent } from './city-search/city-search.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { RouterModule } from '@angular/router';
     ],
     declarations: [
         WeatherComponent,
-        WeatherDatePipe,
-        CitySearchComponent
+        WeatherDatePipe
     ],
     exports: [
         WeatherComponent

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TodoService } from './todo/todo.service';
 import { WeatherService } from './weather/weather.service';
+import { Weather } from './weather/weather';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getWeather();
+        this.getCurrentWeather();
     }
 
     toTodo(): void {
@@ -33,7 +34,7 @@ export class AppComponent implements OnInit {
         this.router.navigateByUrl('/weather');
     }
 
-    getWeather() {
+    getCurrentWeather() {
         this.weatherService.getWeatherByLocation().then((obs) => {
             obs.subscribe(wthr => {
                 this.temp = wthr.main.temp;

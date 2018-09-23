@@ -1,4 +1,4 @@
-export interface Weather {
+export class Weather {
     name: string;
     dt: Date | number;
     id: number;

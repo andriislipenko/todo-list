@@ -24,4 +24,14 @@
     margin: 5px;
 }
 
+.search-result {
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-result:hover {
+    background-color: #a8cbf8;
+    border: 3px outset #a4c7f5;
+}
+
 

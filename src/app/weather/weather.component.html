@@ -35,7 +35,21 @@
                 </div>
 
                 <div class="p-col-12">
-                    <app-city-search></app-city-search>
+                    <div id="p-grid">
+                        <div class="p-col-12">
+                            <h4>City Search</h4>
+                        </div>
+                        
+                        <div class="p-col-12">
+                            <input pInputText #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Search"/>
+                        </div>
+                        
+                        <a (click)="getWeatherById(city.id); cities$ = null; searchBox.value = ''" *ngFor="let city of cities$ | async">
+                            <div class="p-col-12 search-result">
+                                {{city.name}}, {{city.country}}
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
