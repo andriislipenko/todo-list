@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
 import { Weather, FiveDaysWeather } from './weather';
 import { Subject, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-weather',
@@ -16,11 +17,17 @@ export class WeatherComponent implements OnInit {
 
     fiveDaysWeather: FiveDaysWeather = new FiveDaysWeather();
     constructor(
+        private route: ActivatedRoute,
         private weatherService: WeatherService
     ) { }
 
     ngOnInit() {
-        this.getWeatherByLocation();
+        const id = +this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.getWeatherById(id);
+        } else {
+            this.getWeatherByLocation();
+        }
     }
 
     getWeatherByLocation() {
@@ -30,6 +37,14 @@ export class WeatherComponent implements OnInit {
 
                 this.getFiveDaysForecastById(this.weather.id);
             });
+        });
+    }
+
+    getWeatherById(id: number) {
+        this.weatherService.getWeatherById(id).subscribe(wthr => {
+            this.weather = wthr;
+
+            this.getFiveDaysForecastById(this.weather.id);
         });
     }
 
