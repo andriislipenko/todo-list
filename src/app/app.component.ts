@@ -14,11 +14,17 @@ export class AppComponent implements OnInit {
     todoLabel = 'To Do: ';
     weatherLabel = 'Weather: ';
 
+    todoService: TodoService;
+    weatherService: WeatherService;
+
     constructor(
         private router: Router,
-        private todoService: TodoService,
-        private weatherService: WeatherService
-    ) {}
+        todoService: TodoService,
+        weatherService: WeatherService
+    ) {
+        this.todoService = todoService;
+        this.weatherService = weatherService;
+    }
 
     ngOnInit() {
         this.weatherService.getWeatherByLocation();
