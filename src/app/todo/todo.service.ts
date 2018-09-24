@@ -19,6 +19,10 @@ export class TodoService {
         return this.todoList;
     }
 
+    getTodo(id: string) {
+        return this.todoList.find(el => el.id === id);
+    }
+
     saveTodo(text: string): void {
         if (text.length) {
             this.todoList.unshift(new Todo(text));
@@ -42,17 +46,17 @@ export class TodoService {
         this.saveTodosToLocalStorage();
     }
 
-    getTodo(id: string) {
-        return this.todoList.find(el => el.id === id);
+    keepSorted(todoList: Todo[]): Todo[] {
+        return todoList.sort((a, b) => {
+            return b.lastEditDate.getTime() - a.lastEditDate.getTime();
+        }).sort((a, b) => {
+            return +a.isDone - +b.isDone;
+        });
     }
 
     toggleDone(todo: Todo) {
         todo.isDone = !todo.isDone;
         this.saveTodosToLocalStorage();
-    }
-
-    count(): number {
-        return this.todoList.length;
     }
 
     private saveTodosToLocalStorage(): void {
@@ -66,13 +70,5 @@ export class TodoService {
         }
 
         return res;
-    }
-
-    keepSorted(todoList: Todo[]): Todo[] {
-        return todoList.sort((a, b) => {
-            return b.lastEditDate.getTime() - a.lastEditDate.getTime();
-        }).sort((a, b) => {
-            return +a.isDone - +b.isDone;
-        });
     }
 }

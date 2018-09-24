@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormateDatePipe } from './formate-date.pipe';
 import { TodoComponent } from './todo.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TodoComponent } from './todo.component';
     FormsModule,
     ConfirmDialogModule,
     ButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextModule
   ],
   declarations: [
     TodoListComponent,
