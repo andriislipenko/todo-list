@@ -4,12 +4,16 @@
     </div>
 
     <div class="p-col ui-inputgroup justify-center">
-        <input #noteInput type="text" pInputText>
+        <input #noteInput type="text" pInputText 
+            (keydown.enter)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()">
         
         <button pButton type="button" icon="fa fa-save"
             (click)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()">
         </button>
     </div>
-</div>
 
-<app-todo-list></app-todo-list>
+    <div class="p-col-12">
+        <app-todo-list></app-todo-list>
+    </div>
+    
+</div>

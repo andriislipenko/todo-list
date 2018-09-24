@@ -12,7 +12,7 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class TodoListComponent implements OnInit {
     todoOnEditId: string;
-    todoList: Todo[];
+    private _todoList: Todo[];
 
     constructor(
         private todoService: TodoService,
@@ -29,7 +29,7 @@ export class TodoListComponent implements OnInit {
 
     updateTodo(text: string): void {
         this.todoService.updateTodo(this.todoOnEditId, text);
-        this.cancelEditing();
+        this.finishEditing();
     }
 
     deleteTodo(todo): void {
@@ -46,7 +46,15 @@ export class TodoListComponent implements OnInit {
         this.todoService.toggleDone(todo);
     }
 
-    cancelEditing() {
+    finishEditing() {
         this.todoOnEditId = '';
+    }
+
+    set todoList(todoList: Todo[]) {
+        this._todoList = todoList;
+    }
+
+    get todoList(): Todo[] {
+        return this.todoService.keepSorted(this._todoList);
     }
 }

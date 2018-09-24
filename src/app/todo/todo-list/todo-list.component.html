@@ -5,24 +5,24 @@
         </ng-container>
 
         <ng-template #regular>
-            <div class="p-col-2 p-mg-1 p-lg-1">
+            <div class="p-col-2 p-md-1">
                 <input type="checkbox" class="ui-chkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
             </div>
 
-            <div class="p-col-6 p-mg-7 p-lg-7 todo-text">
+            <div class="p-col-6 p-md-7 todo-text">
                 {{todo.text}}
             </div>
 
-            <div class="p-col-4 p-mg-2 p-lg-2">
+            <div class="p-col-4 p-md-2">
                 {{todo.lastEditDate | formateDate}}
             </div>
 
-            <div class="p-col-2 p-mg-1 p-lg-1">
+            <div class="p-col-2 p-md-1">
                 <button pButton type="button" icon="fa fa-edit" (click)="editTodo(todo.id)">
                 </button>
             </div>
 
-            <div class="p-col-2 p-mg-1 p-lg-1">
+            <div class="p-col-2 p-md-1">
                 <p-confirmDialog key="{{todo.id}}" header="Confirmation"></p-confirmDialog>
                 <button class='ui-button-danger' pButton type="button" icon="fa fa-trash" (click)="deleteTodo(todo)">
                 </button>
@@ -30,16 +30,16 @@
         </ng-template>
 
         <ng-template #onEdit>
-            <div class="p-col-8 p-md-10 p-lg-10">
+            <div class="p-col-8 p-md-10">
                 <input #editField type="text" pInputText value={{todo.text}}>
             </div>
 
-            <div class="p-col-2 p-md-1 p-lg-1">
+            <div class="p-col-2 p-md-1">
                 <button pButton type="button" icon="fa fa-check" (click)="updateTodo(editField.value)">
                 </button>
             </div>
 
-            <div class="p-col-2 p-md-1 p-lg-1">
+            <div class="p-col-2 p-md-1">
                 <button class='ui-button-danger' pButton type="button" icon="fa fa-close" (click)="cancelEditing()">
                 </button>
             </div>

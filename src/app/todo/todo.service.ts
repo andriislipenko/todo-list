@@ -14,7 +14,6 @@ export class TodoService {
 
         if (todos) {
             this.todoList = this.parseTodos(todos);
-            this.keepSorted();
         }
 
         return this.todoList;
@@ -24,8 +23,6 @@ export class TodoService {
         if (text.length) {
             this.todoList.unshift(new Todo(text));
             this.saveTodosToLocalStorage();
-
-            this.keepSorted();
         }
     }
 
@@ -37,8 +34,6 @@ export class TodoService {
             todo.lastEditDate = new Date();
 
             this.saveTodosToLocalStorage();
-
-            this.keepSorted();
         }
     }
 
@@ -54,7 +49,6 @@ export class TodoService {
     toggleDone(todo: Todo) {
         todo.isDone = !todo.isDone;
         this.saveTodosToLocalStorage();
-        this.keepSorted();
     }
 
     count(): number {
@@ -74,8 +68,8 @@ export class TodoService {
         return res;
     }
 
-    private keepSorted(): void {
-        this.todoList = this.todoList.sort((a, b) => {
+    keepSorted(todoList: Todo[]): Todo[] {
+        return todoList.sort((a, b) => {
             return b.lastEditDate.getTime() - a.lastEditDate.getTime();
         }).sort((a, b) => {
             return +a.isDone - +b.isDone;
