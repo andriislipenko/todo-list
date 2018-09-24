@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
 import { Weather, FiveDaysWeather } from './weather';
 import { Subject, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { City } from './city';
 
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -17,6 +16,9 @@ export class WeatherComponent implements OnInit {
 
     cities$: Observable<City[]>;
     private searchTerms = new Subject<string>();
+
+    city: City;
+    searchResults: City[];
 
     fiveDaysWeather: FiveDaysWeather = new FiveDaysWeather();
     constructor(
@@ -53,12 +55,18 @@ export class WeatherComponent implements OnInit {
         });
     }
 
-    search(term: string): void {
-        this.searchTerms.next(term);
+    search(e): void {
+        this.searchTerms.next(e.query);
+        this.cities$.subscribe(cities => {
+            this.searchResults = cities;
+
+            this.searchResults.forEach(e => e.name += ' ' + e.country);
+            console.log(this.searchResults);
+        });
     }
 
-    getWeatherById(id: number) {
-        this.weatherService.getWeatherById(id).subscribe(wthr => {
+    getWantedWeather() {
+        this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
             this.weather = wthr;
 
             this.getFiveDaysForecastById(this.weather.id);

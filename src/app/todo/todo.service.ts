@@ -58,10 +58,6 @@ export class TodoService {
     }
 
     count(): number {
-        if (!this.todoList) {
-            return this.getTodoList().length;
-        }
-
         return this.todoList.length;
     }
 

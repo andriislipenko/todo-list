@@ -40,7 +40,12 @@
                             <h4>City Search</h4>
                         </div>
                         
-                        <div class="p-col-12">
+                        <div class="p-col-12 ui-inputgroup justify-center">
+                            <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (completeMethod)="search($event)" field="name"></p-autoComplete>
+                            <button pButton icon="fa fa-search" type="button" (click)="getWantedWeather()"></button>
+                        </div>
+
+                        <!-- <div class="p-col-12">
                             <input pInputText #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Search"/>
                         </div>
                         
@@ -48,7 +53,7 @@
                             <div class="p-col-12 search-result">
                                 {{city.name}}, {{city.country}}
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

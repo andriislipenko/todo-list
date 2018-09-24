@@ -4,12 +4,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './weather.component';
 import { WeatherDatePipe } from './weather-date.pipe';
 import { RouterModule } from '@angular/router';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
         CommonModule,
         HttpClientModule,
-        RouterModule
+        RouterModule,
+        AutoCompleteModule,
+        FormsModule,
+        ButtonModule
     ],
     declarations: [
         WeatherComponent,

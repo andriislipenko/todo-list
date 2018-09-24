@@ -8,7 +8,7 @@
     <div class="p-grid text-center">
         <div class="p-col">
             <button 
-                pButton label="{{todoLabel}}{{todoService.count()}}"
+                pButton label="{{todoLabel}}{{todoService.todoList.length}}"
                 class="ui-button-raised ui-button-secondary"
                 (click)='toTodo()'>
             </button>
