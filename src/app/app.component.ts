@@ -11,17 +11,14 @@ import { Weather } from './weather/weather';
 })
 export class AppComponent implements OnInit {
     title = 'ToDo + Weather';
-    todoLabel: string;
-    weatherLabel: string;
-    temp: number;
+    todoLabel = 'To Do: ';
+    weatherLabel = 'Weather: ';
+
     constructor(
         private router: Router,
         private todoService: TodoService,
         private weatherService: WeatherService
-    ) {
-        this.todoLabel = `To Do: `;
-        this.weatherLabel = `Weather: `;
-    }
+    ) {}
 
     ngOnInit() {
         this.weatherService.getWeatherByLocation();
@@ -31,6 +28,7 @@ export class AppComponent implements OnInit {
     toTodo(): void {
         this.router.navigateByUrl('/todo');
     }
+
     toWeather(): void {
         this.router.navigateByUrl('/weather');
     }

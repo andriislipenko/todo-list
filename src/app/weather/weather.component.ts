@@ -47,7 +47,7 @@ export class WeatherComponent implements OnInit {
 
     search(e): void {
         this.weatherService.searchCity(e.query).pipe(
-            debounceTime(300),
+            debounceTime(500),
             distinctUntilChanged()
         ).subscribe((cities: City[]) => {
             this.searchResults = cities;

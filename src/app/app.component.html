@@ -1,29 +1,24 @@
 <div class="container">
-    <div class="p-grid text-center">
-        <div class="p-col">
-            <h1>{{title}}</h1>
-        </div>
-    </div>
     
-    <div class="p-grid text-center">
-        <div class="p-col">
+    <h1>{{title}}</h1>
+    
+    <div class="p-grid">
+        <div class="p-col-6">
             <button 
                 pButton label="{{todoLabel}}{{todoService.todoList.length}}"
                 class="ui-button-raised ui-button-secondary"
                 (click)='toTodo()'>
             </button>
         </div>
-        <div class="p-col">
+        <div class="p-col-6">
             <button 
                 pButton label="{{weatherLabel}}{{weatherService.currentCityWeather.main.temp}}" 
                 class="ui-button-raised ui-button-secondary"
                 (click)='toWeather()'></button>
         </div>
-    </div>
-
-    <div class="p-grid text-center">
         <div class="p-col">
             <router-outlet></router-outlet>
         </div>
     </div>
+
 </div>
