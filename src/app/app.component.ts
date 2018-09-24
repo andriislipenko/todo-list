@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.weatherService.getWeatherByLocation();
+        this.todoService.getTodoList();
     }
 
     toTodo(): void {

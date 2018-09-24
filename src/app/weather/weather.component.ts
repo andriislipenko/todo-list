@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
 import { Weather, FiveDaysWeather } from './weather';
-import { Subject, Observable } from 'rxjs';
 import { City } from './city';
 
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'app-weather',
@@ -13,9 +12,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class WeatherComponent implements OnInit {
     weather: Weather;
-
-    cities$: Observable<City[]>;
-    private searchTerms = new Subject<string>();
 
     city: City;
     searchResults: City[];
@@ -27,12 +23,6 @@ export class WeatherComponent implements OnInit {
 
     ngOnInit() {
         this.getWeather();
-
-        this.cities$ = this.searchTerms.pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            switchMap((term: string) => this.weatherService.searchCity(term))
-        );
     }
 
     getWeather() {
@@ -56,12 +46,13 @@ export class WeatherComponent implements OnInit {
     }
 
     search(e): void {
-        this.searchTerms.next(e.query);
-        this.cities$.subscribe(cities => {
+        this.weatherService.searchCity(e.query).pipe(
+            debounceTime(300),
+            distinctUntilChanged()
+        ).subscribe((cities: City[]) => {
             this.searchResults = cities;
 
-            this.searchResults.forEach(e => e.name += ' ' + e.country);
-            console.log(this.searchResults);
+            this.searchResults.forEach((item: City) => item.name += ' ' + item.country);
         });
     }
 
