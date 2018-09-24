@@ -17,7 +17,7 @@ export class WeatherService {
 
     static CITIES_INFO_URL = 'assets/current.city.list.min.json';
 
-    temp = 0;
+    currentCityWeather: Weather;
 
     constructor(
         private http: HttpClient
@@ -30,7 +30,7 @@ export class WeatherService {
 
             const obs = this.http.get(url);
             obs.subscribe((wthr: Weather) => {
-                this.temp = wthr.main.temp;
+                this.currentCityWeather = wthr;
             });
 
             return obs;
@@ -42,7 +42,7 @@ export class WeatherService {
 
         const obs = this.http.get(url);
         obs.subscribe((wthr: Weather) => {
-            this.temp = wthr.main.temp;
+            this.currentCityWeather = wthr;
         });
 
         return obs;

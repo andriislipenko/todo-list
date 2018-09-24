@@ -20,18 +20,27 @@ export class WeatherComponent implements OnInit {
 
     fiveDaysWeather: FiveDaysWeather = new FiveDaysWeather();
     constructor(
-        private route: ActivatedRoute,
         private weatherService: WeatherService
     ) { }
 
     ngOnInit() {
-        this.getWeatherByLocation();
+        this.getWeather();
 
         this.cities$ = this.searchTerms.pipe(
             debounceTime(300),
             distinctUntilChanged(),
             switchMap((term: string) => this.weatherService.searchCity(term))
         );
+    }
+
+    getWeather() {
+        if (!this.weatherService.currentCityWeather) {
+            this.getWeatherByLocation();
+        } else {
+            this.weather = this.weatherService.currentCityWeather;
+
+            this.getFiveDaysForecastById(this.weather.id);
+        }
     }
 
     getWeatherByLocation() {
