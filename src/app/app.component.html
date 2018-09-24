@@ -15,7 +15,7 @@
         </div>
         <div class="p-col">
             <button 
-                pButton label="{{weatherLabel}}{{temp}}" 
+                pButton label="{{weatherLabel}}{{weatherService.temp}}" 
                 class="ui-button-raised ui-button-secondary"
                 (click)='toWeather()'></button>
         </div>

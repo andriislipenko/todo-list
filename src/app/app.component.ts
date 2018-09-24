@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getCurrentWeather();
+        this.weatherService.getWeatherByLocation();
     }
 
     toTodo(): void {
@@ -34,11 +34,4 @@ export class AppComponent implements OnInit {
         this.router.navigateByUrl('/weather');
     }
 
-    getCurrentWeather() {
-        this.weatherService.getWeatherByLocation().then((obs) => {
-            obs.subscribe(wthr => {
-                this.temp = wthr.main.temp;
-            });
-        });
-    }
 }

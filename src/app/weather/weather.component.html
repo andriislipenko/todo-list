@@ -44,7 +44,7 @@
                             <input pInputText #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Search"/>
                         </div>
                         
-                        <a (click)="getWeatherById(city.id); cities$ = null; searchBox.value = ''" *ngFor="let city of cities$ | async">
+                        <a (click)="getWeatherById(city.id); searchBox.value = ''; search(searchBox.value)" *ngFor="let city of cities$ | async">
                             <div class="p-col-12 search-result">
                                 {{city.name}}, {{city.country}}
                             </div>

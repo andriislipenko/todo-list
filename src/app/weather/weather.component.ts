@@ -31,7 +31,7 @@ export class WeatherComponent implements OnInit {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap((term: string) => this.weatherService.searchCity(term))
-          );
+        );
     }
 
     getWeatherByLocation() {

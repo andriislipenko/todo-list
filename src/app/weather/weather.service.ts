@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { City } from './city';
 import { map } from 'rxjs/operators';
+import { Weather } from './weather';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,8 @@ export class WeatherService {
 
     static CITIES_INFO_URL = 'assets/current.city.list.min.json';
 
+    temp = 0;
+
     constructor(
         private http: HttpClient
     ) { }
@@ -25,14 +28,24 @@ export class WeatherService {
             const url =
                 `${WeatherService.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${WeatherService.API_SUFIX}`;
 
-            return this.http.get(url);
+            const obs = this.http.get(url);
+            obs.subscribe((wthr: Weather) => {
+                this.temp = wthr.main.temp;
+            });
+
+            return obs;
          });
     }
 
     getWeatherById(id: number): Observable<any> {
         const url = `${WeatherService.API_PREFIX}weather?id=${id}${WeatherService.API_SUFIX}`;
 
-        return this.http.get(url);
+        const obs = this.http.get(url);
+        obs.subscribe((wthr: Weather) => {
+            this.temp = wthr.main.temp;
+        });
+
+        return obs;
     }
 
     getFiveDaysForecastById(id: number): Observable<any> {
