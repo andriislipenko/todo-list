@@ -13,6 +13,7 @@ import { ConfirmationService } from 'primeng/api';
 export class TodoListComponent implements OnInit {
     todoOnEditId: string;
     todoList: Todo[];
+
     constructor(
         private todoService: TodoService,
         private confService: ConfirmationService,
