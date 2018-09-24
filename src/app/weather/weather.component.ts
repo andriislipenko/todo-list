@@ -12,11 +12,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class WeatherComponent implements OnInit {
     weather: Weather;
+    fiveDaysWeather: FiveDaysWeather    ;
 
     city: City;
     searchResults: City[];
-
-    fiveDaysWeather: FiveDaysWeather = new FiveDaysWeather();
     constructor(
         private weatherService: WeatherService
     ) { }
@@ -28,9 +27,9 @@ export class WeatherComponent implements OnInit {
     getWeather() {
         if (!this.weatherService.currentCityWeather) {
             this.getWeatherByLocation();
+            this.getFiveDaysForecastById(this.weather.id);
         } else {
             this.weather = this.weatherService.currentCityWeather;
-
             this.getFiveDaysForecastById(this.weather.id);
         }
     }
@@ -39,8 +38,6 @@ export class WeatherComponent implements OnInit {
         this.weatherService.getWeatherByLocation().then((obs) => {
             obs.subscribe(wthr => {
                 this.weather = wthr;
-
-                this.getFiveDaysForecastById(this.weather.id);
             });
         });
     }
@@ -51,7 +48,6 @@ export class WeatherComponent implements OnInit {
             distinctUntilChanged()
         ).subscribe((cities: City[]) => {
             this.searchResults = cities;
-
             this.searchResults.forEach((item: City) => item.name += ' ' + item.country);
         });
     }
@@ -61,7 +57,6 @@ export class WeatherComponent implements OnInit {
         if (this.city.id) {
             this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
                 this.weather = wthr;
-
                 this.getFiveDaysForecastById(this.weather.id);
             });
         }

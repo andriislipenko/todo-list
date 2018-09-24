@@ -31,7 +31,7 @@
 
         <ng-template #onEdit>
             <div class="p-col-8 p-md-10">
-                <input #editField type="text" pInputText value={{todo.text}}>
+                <input #editField type="text" pInputText value={{todo.text}} (keydown.enter)="updateTodo(editField.value)">
             </div>
 
             <div class="p-col-2 p-md-1">

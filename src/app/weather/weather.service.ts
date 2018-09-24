@@ -54,17 +54,6 @@ export class WeatherService {
         return this.http.get(url);
     }
 
-    getPosition(): Promise<{ lat: number, lon: number }> {
-        return new Promise((res, rej) => {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                res({ lat: pos.coords.latitude, lon: pos.coords.longitude });
-            },
-            e => {
-                res({ lat: WeatherService.DEFAULT_LAT, lon: WeatherService.DEFAULT_LON });
-            });
-        });
-    }
-
     searchCity(term: string): Observable<City[]> {
         term = term.toLowerCase();
 
@@ -77,5 +66,16 @@ export class WeatherService {
                 return city.filter((c: City, i, a) => c.name.toLowerCase().indexOf(term) > -1);
             })
         );
+    }
+
+    private getPosition(): Promise<{ lat: number, lon: number }> {
+        return new Promise((res, rej) => {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                res({ lat: pos.coords.latitude, lon: pos.coords.longitude });
+            },
+            e => {
+                res({ lat: WeatherService.DEFAULT_LAT, lon: WeatherService.DEFAULT_LON });
+            });
+        });
     }
 }
