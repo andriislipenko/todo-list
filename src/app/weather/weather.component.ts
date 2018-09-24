@@ -57,11 +57,14 @@ export class WeatherComponent implements OnInit {
     }
 
     getWantedWeather() {
-        this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
-            this.weather = wthr;
+        console.log(this.city);
+        if (this.city.id) {
+            this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
+                this.weather = wthr;
 
-            this.getFiveDaysForecastById(this.weather.id);
-        });
+                this.getFiveDaysForecastById(this.weather.id);
+            });
+        }
     }
 
     getFiveDaysForecastById(id: number) {

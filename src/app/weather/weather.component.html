@@ -41,19 +41,12 @@
                         </div>
                         
                         <div class="p-col-12 ui-inputgroup justify-center">
-                            <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (completeMethod)="search($event)" field="name"></p-autoComplete>
-                            <button pButton icon="fa fa-search" type="button" (click)="getWantedWeather()"></button>
+                            <p-autoComplete 
+                                [(ngModel)]="city" [suggestions]="searchResults"  
+                                (onSelect)="getWantedWeather()" 
+                                (completeMethod)="search($event)" field="name">
+                            </p-autoComplete>
                         </div>
-
-                        <!-- <div class="p-col-12">
-                            <input pInputText #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Search"/>
-                        </div>
-                        
-                        <a (click)="getWeatherById(city.id); searchBox.value = ''; search(searchBox.value)" *ngFor="let city of cities$ | async">
-                            <div class="p-col-12 search-result">
-                                {{city.name}}, {{city.country}}
-                            </div>
-                        </a> -->
                     </div>
                 </div>
             </div>
