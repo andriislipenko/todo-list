@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TodoService } from './todo/todo.service';
 import { WeatherService } from './weather/weather.service';
 import { Weather } from './weather/weather';
+import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-root',
@@ -10,33 +11,43 @@ import { Weather } from './weather/weather';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title = 'ToDo + Weather';
-    todoLabel = 'To Do: ';
-    weatherLabel = 'Weather: ';
+    public todoLabel = 'Tasks: ';
+    public weatherLabel = 'Weather: ';
 
-    todoService: TodoService;
-    weatherService: WeatherService;
+    public todosAmount: number = null;
+    public currentTemperature: number = 5;
 
     constructor(
         private router: Router,
-        todoService: TodoService,
-        weatherService: WeatherService
+        private todoService: TodoService,
+        private weatherService: WeatherService
     ) {
         this.todoService = todoService;
         this.weatherService = weatherService;
     }
 
-    ngOnInit() {
-        this.weatherService.getWeatherByLocation();
-        this.todoService.getTodoList();
+    ngOnInit(): void {
+        this.getTodosAmount();
+        // this.getCurrentTemperature();
     }
 
-    toTodo(): void {
+    public toTodo(): void {
         this.router.navigateByUrl('/todo');
     }
 
-    toWeather(): void {
+    public toWeather(): void {
         this.router.navigateByUrl('/weather');
     }
 
+    private getTodosAmount(): void {
+        this.todoService.todosAmount
+        .pipe(delay(100))
+        .subscribe((amount: number) => {
+            this.todosAmount = amount;
+        });
+    }
+
+    // private getCurrentTemperature(): void {
+    //     this.weatherService.getCurrentTemperature();
+    // }
 }

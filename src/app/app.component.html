@@ -1,19 +1,13 @@
 <div class="container">
-    
-    <h1>{{title}}</h1>
-    
+
     <div class="p-grid">
         <div class="p-col-6">
-            <button 
-                pButton label="{{todoLabel}}{{todoService.todoList.length}}"
-                class="ui-button-raised ui-button-secondary"
+            <button pButton label="{{todoLabel + todosAmount}}" class="ui-button-raised ui-button-secondary"
                 (click)='toTodo()'>
             </button>
         </div>
         <div class="p-col-6">
-            <button 
-                pButton label="{{weatherLabel}}{{weatherService.currentCityWeather.main.temp}}&#8451;" 
-                class="ui-button-raised ui-button-secondary"
+            <button pButton label="{{weatherLabel + currentTemperature}}&#8451;" class="ui-button-raised ui-button-secondary"
                 (click)='toWeather()'></button>
         </div>
         <div class="p-col">

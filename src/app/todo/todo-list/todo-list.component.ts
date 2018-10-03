@@ -16,8 +16,8 @@ export class TodoListComponent implements OnInit {
 
     constructor(
         private todoService: TodoService,
-        private confService: ConfirmationService,
-    ) { }
+        private confService: ConfirmationService
+    ) {}
 
     ngOnInit() {
         this.todoList = this.todoService.getTodoList();

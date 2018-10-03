@@ -1,19 +1,32 @@
 import { Injectable, Output } from '@angular/core';
 import { Todo } from './todo';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subject } from 'rxjs/internal/Subject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TodoService {
-    todoList: Todo[] = [];
+    public todoList: Todo[] = [];
 
-    constructor() { }
+    public todosAmount = new BehaviorSubject<number>(this.todoList.length);
+
+    constructor() {}
+
+    public getTodosAmount(): Observable<number> {
+        if (!this.todoList) {
+            this.getTodoList();
+        }
+        return this.todosAmount.asObservable();
+    }
 
     getTodoList(): Todo[] {
         const todos = localStorage.getItem('todos');
 
         if (todos) {
             this.todoList = this.parseTodos(todos);
+            this.updateCounter();
         }
 
         return this.todoList;
@@ -27,6 +40,7 @@ export class TodoService {
         if (text.length) {
             this.todoList.unshift(new Todo(text));
             this.saveTodosToLocalStorage();
+            this.updateCounter();
         }
     }
 
@@ -44,9 +58,14 @@ export class TodoService {
     deleteTodo(todo: Todo): void {
         this.todoList.splice(this.todoList.indexOf(todo), 1);
         this.saveTodosToLocalStorage();
+        this.updateCounter();
     }
 
     keepSorted(todoList: Todo[]): Todo[] {
+        if (!todoList) {
+            return [];
+        }
+
         return todoList.sort((a, b) => {
             return b.lastEditDate.getTime() - a.lastEditDate.getTime();
         }).sort((a, b) => {
@@ -57,6 +76,10 @@ export class TodoService {
     toggleDone(todo: Todo) {
         todo.isDone = !todo.isDone;
         this.saveTodosToLocalStorage();
+    }
+
+    private updateCounter(): void {
+        this.todosAmount.next(this.todoList.length);
     }
 
     private saveTodosToLocalStorage(): void {
