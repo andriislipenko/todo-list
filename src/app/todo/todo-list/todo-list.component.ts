@@ -7,7 +7,7 @@ import { ConfirmationService } from 'primeng/api';
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.css'],
+    styleUrls: ['./todo-list.component.scss'],
     providers: [ConfirmationService]
 })
 export class TodoListComponent implements OnInit {
