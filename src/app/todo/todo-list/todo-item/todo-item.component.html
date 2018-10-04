@@ -1,45 +1,43 @@
-<div class="p-grid p-justify-end todo-container" [ngClass]="{'checked': todo.isDone}">
+<div class="p-grid todo-container" [ngClass]="{'checked': todo.isDone}">
     <ng-container *ngIf="todoOnEditId === todo.id; then onEdit; else regular">
     </ng-container>
 
     <ng-template #regular>
-        <div class="p-col-2 p-md-1">
-            <input type="checkbox" class="ui-chkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
+        <div class="p-col-2 p-md-1 align-center">
+            <input type="checkbox" class="ui-chkbox todo-checkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
         </div>
 
-        <div class="p-col-6 p-md-7 todo-text">
-            {{todo.text}}
+        <div 
+            class="p-col-6 p-md-8 align-center todo-text-container" 
+            (click)="editTodo(todo.id)"
+            (mouseenter)="isHover = true"
+            (mouseleave)="isHover = false">
+            <span class="todo-text">{{todo.text}}</span>
+
+            <i class="fa fa-pencil edit-icon" [ngClass]="{'hidden': !isHover}"></i>
         </div>
 
-        <div class="p-col-4 p-md-2">
-            {{todo.lastEditDate | formateDate}}
+        <div class="p-col-3 p-md-2 align-center">
+            <span class="todo-date">{{todo.lastEditDate | date : "HH:mm MM/dd/yy" }}</span>
         </div>
 
-        <div class="p-col-2 p-md-1">
-            <button pButton type="button" icon="fa fa-edit" (click)="editTodo(todo.id)">
-            </button>
-        </div>
-
-        <div class="p-col-2 p-md-1">
+        <div class="p-col-1 p-md-1 align-center justify-center">
             <p-confirmDialog key="{{todo.id}}" header="Confirmation"></p-confirmDialog>
-            <button class='ui-button-danger' pButton type="button" icon="fa fa-trash" (click)="deleteTodo(todo)">
-            </button>
+            <i class="fa fa-minus delete" (click)="deleteTodo(todo)"></i>
         </div>
     </ng-template>
 
     <ng-template #onEdit>
-        <div class="p-col-8 p-md-10">
+        <div class="p-col-8 p-md-10 align-center justify-center">
             <input #editField type="text" pInputText value={{todo.text}} (keydown.enter)="updateTodo(editField.value)">
         </div>
 
-        <div class="p-col-2 p-md-1">
-            <button pButton type="button" icon="fa fa-check" (click)="updateTodo(editField.value)">
-            </button>
+        <div class="p-col-2 p-md-1 align-center edit-save" (click)="updateTodo(editField.value)">
+            <i class="fa fa-check"></i>
         </div>
 
-        <div class="p-col-2 p-md-1">
-            <button class='ui-button-danger' pButton type="button" icon="fa fa-close" (click)="finishEditing()">
-            </button>
+        <div class="p-col-2 p-md-1 align-center edit-cancel" (click)="finishEditing()">
+            <i class="fa fa-ban"></i>
         </div>
     </ng-template>
 </div>

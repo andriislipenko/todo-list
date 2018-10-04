@@ -1,13 +1,5 @@
-.todo-text {
-    max-width: 500px;
-    word-wrap: break-word;
-}
-
-.checked {
-    text-decoration-line: line-through;
-    background-color: #acbff1 !important;
-    transition: background-color 0.5s linear;
-}
+$border-radius: 20px;
+$border-rounding: 50%;
 
 .todo-container{
     max-width: 100%;
@@ -17,8 +9,68 @@
     background-size: 100%;
     background-color: #f2f4ff;    
 
-    border-top-left-radius: 30px 50%;
-    border-bottom-left-radius: 30px 50%;
-    border-top-right-radius: 30px 50%;
-    border-bottom-right-radius: 30px 50%;
+    border-top-left-radius: $border-radius $border-rounding;
+    border-bottom-left-radius: $border-radius $border-rounding;
+    border-top-right-radius: $border-radius $border-rounding;
+    border-bottom-right-radius: $border-radius $border-rounding;
+}
+
+.todo-text-container {
+    cursor: pointer;
+}
+
+.todo-text {
+    font-size: 14pt;
+    color: #383841;
+
+    max-width: 500px;
+    word-wrap: break-word;
+}
+
+.todo-checkbox {
+    margin-left: 15px;
+}
+
+.checked {
+    background-color: #acbff1 !important;
+    transition: background-color 0.5s linear;
+
+    .todo-text{
+        text-decoration-line: line-through;
+        font-style: italic;
+    }
+}
+
+.delete {
+    color: rgb(218, 50, 50);
+    cursor: pointer;
+}
+
+.align-center {
+    display: flex; 
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.edit-icon {
+    margin-left: auto;
+    color: #464646;
+}
+
+.edit-save {
+    cursor: pointer;
+    color: #78f56d
+}
+
+.edit-cancel {
+    cursor: pointer;
+    color: #c94141;
+}
+
+.todo-date {
+    font-size: 10pt;
+    color: #8b8888;
 }

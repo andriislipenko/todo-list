@@ -15,6 +15,8 @@ export class TodoItemComponent {
 
     @Output() edit = new EventEmitter();
 
+    public isHover = false;
+
     constructor(
         private todoService: TodoService,
         private confirmService: ConfirmationService
@@ -22,6 +24,7 @@ export class TodoItemComponent {
 
     editTodo(id: string): void {
         this.edit.emit(id);
+        this.isHover = false;
     }
 
     updateTodo(text: string): void {
