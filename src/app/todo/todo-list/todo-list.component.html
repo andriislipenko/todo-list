@@ -1,48 +1,7 @@
-<div class="container" *ngIf="todoList && todoList.length">
-    <div class="p-grid p-justify-end todo-container" *ngFor="let todo of todoList" [ngClass]="{'checked': todo.isDone}">
-
-        <ng-container *ngIf="todoOnEditId === todo.id; then onEdit; else regular">
-        </ng-container>
-
-        <ng-template #regular>
-            <div class="p-col-2 p-md-1">
-                <input type="checkbox" class="ui-chkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
-            </div>
-
-            <div class="p-col-6 p-md-7 todo-text">
-                {{todo.text}}
-            </div>
-
-            <div class="p-col-4 p-md-2">
-                {{todo.lastEditDate | formateDate}}
-            </div>
-
-            <div class="p-col-2 p-md-1">
-                <button pButton type="button" icon="fa fa-edit" (click)="editTodo(todo.id)">
-                </button>
-            </div>
-
-            <div class="p-col-2 p-md-1">
-                <p-confirmDialog key="{{todo.id}}" header="Confirmation"></p-confirmDialog>
-                <button class='ui-button-danger' pButton type="button" icon="fa fa-trash" (click)="deleteTodo(todo)">
-                </button>
-            </div>
-        </ng-template>
-
-        <ng-template #onEdit>
-            <div class="p-col-8 p-md-10">
-                <input #editField type="text" pInputText value={{todo.text}} (keydown.enter)="updateTodo(editField.value)">
-            </div>
-
-            <div class="p-col-2 p-md-1">
-                <button pButton type="button" icon="fa fa-check" (click)="updateTodo(editField.value)">
-                </button>
-            </div>
-
-            <div class="p-col-2 p-md-1">
-                <button class='ui-button-danger' pButton type="button" icon="fa fa-close" (click)="finishEditing()">
-                </button>
-            </div>
-        </ng-template>
-    </div>
+<div *ngIf="todoList && todoList.length">
+    <app-todo-item 
+        *ngFor="let todo of todoList" 
+        [todo]="todo" [todoOnEditId]='todoOnEditId' 
+        (edit)='setTodoOnEditId($event)'>
+    </app-todo-item>
 </div>

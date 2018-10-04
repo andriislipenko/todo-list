@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormateDatePipe } from './formate-date.pipe';
 import { TodoComponent } from './todo.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { InputTextModule } from 'primeng/inputtext';
   declarations: [
     TodoListComponent,
     TodoComponent,
-    FormateDatePipe
+    FormateDatePipe,
+    TodoItemComponent
   ],
   exports: [
     TodoListComponent,

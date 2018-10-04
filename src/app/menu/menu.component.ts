@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { TodoService } from '../todo/todo.service';
 import { WeatherService } from '../weather/weather.service';
@@ -7,7 +7,7 @@ import { delay } from 'rxjs/internal/operators/delay';
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.css']
+    styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
     public readonly TODO_TITLE = 'Tasks';

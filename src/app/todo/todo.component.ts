@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TodoService } from './todo.service';
 
 @Component({
@@ -6,11 +6,8 @@ import { TodoService } from './todo.service';
     templateUrl: './todo.component.html',
     styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent {
     constructor(private todoService: TodoService) { }
-
-    ngOnInit() {
-    }
 
     saveTodo(text: string): void {
         this.todoService.saveTodo(text);
