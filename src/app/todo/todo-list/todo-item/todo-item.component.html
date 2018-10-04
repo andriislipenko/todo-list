@@ -9,7 +9,7 @@
 
         <div 
             class="p-col-6 p-md-8 align-center todo-text-container" 
-            (click)="editTodo(todo.id)"
+            (click)="editTodo(todo.id);"
             (mouseenter)="isHover = true"
             (mouseleave)="isHover = false">
             <span class="todo-text">{{todo.text}}</span>
@@ -29,7 +29,8 @@
 
     <ng-template #onEdit>
         <div class="p-col-8 p-md-10 align-center justify-center">
-            <input #editField type="text" pInputText value={{todo.text}} (keydown.enter)="updateTodo(editField.value)">
+            <input #editField type="text" class="edit-input"
+            value={{todo.text}} (keydown.enter)="updateTodo(editField.value)">
         </div>
 
         <div class="p-col-2 p-md-1 align-center edit-save" (click)="updateTodo(editField.value)">
