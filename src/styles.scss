@@ -1,5 +1,5 @@
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Lucida Console", Monaco, monospace;
     text-align: center;
 }
 
@@ -29,6 +29,11 @@ h4 {
 
 .justify-right {
     justify-content: right;
+}
+
+.align-center {
+    display: flex; 
+    align-items: center;
 }
 
 .v-align-center {

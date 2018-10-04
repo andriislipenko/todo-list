@@ -7,7 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormateDatePipe } from './formate-date.pipe';
 import { TodoComponent } from './todo.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
@@ -25,7 +24,6 @@ import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
   declarations: [
     TodoListComponent,
     TodoComponent,
-    FormateDatePipe,
     TodoItemComponent
   ],
   exports: [

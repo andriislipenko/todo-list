@@ -1,4 +1,33 @@
+$border-radius: 20px;
+$border-rounding: 50%;
+
 .container {
     max-width: 800px;
     margin: auto;
+}
+
+.todo-input {
+    border: none;
+    outline: none;
+
+    width: 70%;
+
+    font-size: 14pt;
+    padding: 0.5em 20px;
+
+    background-size: 100%;
+    background-color: #f2f4ff;    
+
+    border-top-left-radius: $border-radius $border-rounding;
+    border-bottom-left-radius: $border-radius $border-rounding;
+    border-top-right-radius: $border-radius $border-rounding;
+    border-bottom-right-radius: $border-radius $border-rounding;
+}
+
+.todo-save-button {
+    display: inline-flex;
+    position: relative;
+    right: 30px;
+    color: #5e5e5e;
+    cursor: pointer;
 }

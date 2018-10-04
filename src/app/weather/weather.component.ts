@@ -25,7 +25,6 @@ export class WeatherComponent implements OnInit {
   public getWeather() {
     if (!this.weatherService.currentCityWeather) {
       this.getWeatherByLocation();
-      this.getFiveDaysForecastById(this.weather.id);
     } else {
       this.weather = this.weatherService.currentCityWeather;
       this.getFiveDaysForecastById(this.weather.id);
@@ -34,8 +33,9 @@ export class WeatherComponent implements OnInit {
 
   getWeatherByLocation() {
     this.weatherService.getWeatherByLocation().then(obs => {
-      obs.subscribe(wthr => {
-        this.weather = wthr;
+      obs.subscribe(weather => {
+        this.weather = weather;
+        this.getFiveDaysForecastById(this.weather.id);
       });
     });
   }

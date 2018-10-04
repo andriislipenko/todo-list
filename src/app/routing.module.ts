@@ -6,7 +6,7 @@ import { WeatherComponent } from './weather/weather.component';
 
 const routes: Routes = [
     { path: 'todo', component: TodoComponent },
-    { path: 'weather', component: WeatherComponent },
+    { path: 'weather', component: WeatherComponent  },
     { path: '', redirectTo: 'todo', pathMatch: 'full' }
 ];
 
