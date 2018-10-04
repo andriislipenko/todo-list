@@ -14,7 +14,7 @@ const routes: Routes = [
     exports: [RouterModule],
     imports: [
         CommonModule,
-        RouterModule.forRoot(routes, {useHash: true})
+        RouterModule.forRoot(routes)
     ],
     declarations: []
 })

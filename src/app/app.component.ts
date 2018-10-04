@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     public weatherLabel = 'Weather: ';
 
     public todosAmount: number = null;
-    public currentTemperature: number = 5;
+    public currentTemperature: number = null;
 
     constructor(
         private router: Router,
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.getTodosAmount();
-        // this.getCurrentTemperature();
+        this.getCurrentTemperature();
     }
 
     public toTodo(): void {
@@ -47,7 +47,9 @@ export class AppComponent implements OnInit {
         });
     }
 
-    // private getCurrentTemperature(): void {
-    //     this.weatherService.getCurrentTemperature();
-    // }
+    private getCurrentTemperature(): void {
+        this.weatherService.getCurrentTemperature().subscribe((temperature: number) => {
+            this.currentTemperature = temperature;
+        });
+    }
 }
