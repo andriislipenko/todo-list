@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Todo } from '../todo';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
     styleUrls: ['./todo-list.component.scss'],
+    providers: [ConfirmationService]
 })
 export class TodoListComponent implements OnInit {
     public todoOnEditId: string = null;
@@ -14,11 +16,21 @@ export class TodoListComponent implements OnInit {
     public isCollapsed = true;
 
     constructor(
-        private todoService: TodoService
+        private todoService: TodoService,
+        private confirmService: ConfirmationService
     ) {}
 
     ngOnInit(): void {
         this.todoList = this.todoService.getTodoList();
+    }
+
+    public deleteDone(): void {
+        this.confirmService.confirm({
+            message: 'Are you shure to delete all done ToDos?',
+            accept: () => {
+                this.todoService.deleteDone();
+            }
+        });
     }
 
     public setTodoOnEditId(id: string): void {

@@ -53,6 +53,12 @@ export class TodoService {
         this.updateCounter();
     }
 
+    public deleteDone(): void {
+        this.todoList.filter((todo: Todo) => todo.isDone).forEach((todo: Todo) => {
+            this.deleteTodo(todo);
+        });
+    }
+
     public keepSorted(todoList: Todo[]): Todo[] {
         if (!todoList) {
             return [];

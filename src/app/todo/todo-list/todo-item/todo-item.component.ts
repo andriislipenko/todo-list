@@ -17,7 +17,7 @@ export class TodoItemComponent {
 
     constructor(
         private todoService: TodoService,
-        private confService: ConfirmationService
+        private confirmService: ConfirmationService
     ) {}
 
     editTodo(id: string): void {
@@ -30,7 +30,7 @@ export class TodoItemComponent {
     }
 
     deleteTodo(todo: Todo): void {
-        this.confService.confirm({
+        this.confirmService.confirm({
             message: 'Are you shure to delete this ToDo item?',
             key: todo.id,
             accept: () => {

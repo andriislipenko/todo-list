@@ -1,7 +1,12 @@
 <div *ngIf="todoList && todoList.length">
     <div class="options-container">
-        <span (click)="toggleCollapse()" class="optional-link">
+        <span class="optional-link" (click)="toggleCollapse()">
             <i class="fa fa-cog" style="margin-right: 5px;"></i>{{ isCollapsed ? 'Show done' : 'Hide done' }}
+        </span> 
+
+        <p-confirmDialog header="Confirmation" style="text-align: center"></p-confirmDialog>
+        <span class="optional-link danger" (click)="deleteDone()">
+            <i class="fa fa-trash" style="margin-right: 5px;"></i>Delete done
         </span> 
     </div>
     
