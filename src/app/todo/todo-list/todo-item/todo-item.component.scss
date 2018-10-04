@@ -4,7 +4,9 @@
 }
 
 .checked {
+    text-decoration-line: line-through;
     background-color: #acbff1 !important;
+    transition: background-color 0.5s linear;
 }
 
 .todo-container{

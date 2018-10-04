@@ -11,6 +11,8 @@ export class TodoListComponent implements OnInit {
     public todoOnEditId: string = null;
     private _todoList: Todo[] = null;
 
+    public isCollapsed = true;
+
     constructor(
         private todoService: TodoService
     ) {}
@@ -21,6 +23,10 @@ export class TodoListComponent implements OnInit {
 
     public setTodoOnEditId(id: string): void {
         this.todoOnEditId = id;
+    }
+
+    public toggleCollapse() {
+        this.isCollapsed = !this.isCollapsed;
     }
 
     set todoList(todoList: Todo[]) {

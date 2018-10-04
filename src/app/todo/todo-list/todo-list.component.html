@@ -1,7 +1,26 @@
 <div *ngIf="todoList && todoList.length">
-    <app-todo-item 
-        *ngFor="let todo of todoList" 
-        [todo]="todo" [todoOnEditId]='todoOnEditId' 
-        (edit)='setTodoOnEditId($event)'>
-    </app-todo-item>
+    <div class="options-container">
+        <span (click)="toggleCollapse()" class="optional-link">
+            <i class="fa fa-cog" style="margin-right: 5px;"></i>{{ isCollapsed ? 'Show done' : 'Hide done' }}
+        </span> 
+    </div>
+    
+
+    <div *ngFor="let todo of todoList">
+        <div *ngIf="!todo.isDone">
+            <app-todo-item 
+                [todo]="todo" [todoOnEditId]='todoOnEditId' (edit)='setTodoOnEditId($event)'>
+            </app-todo-item>
+        </div>
+        
+        <div *ngIf="todo.isDone">
+            <div class="collapsible" [ngClass]="{'uncollapsed': !isCollapsed}">
+                <app-todo-item 
+                    [todo]="todo" [todoOnEditId]='todoOnEditId' (edit)='setTodoOnEditId($event)'>
+                </app-todo-item>
+            </div>
+        </div>
+               
+    </div>
+    
 </div>
