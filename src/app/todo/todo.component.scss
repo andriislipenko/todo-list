@@ -10,14 +10,15 @@ $border-rounding: 50%;
     border: none;
     outline: none;
 
-    width: 70%;
+    width: 100%;
 
     font-size: 14pt;
+    color: #fcfcfc;
     padding: 0.5em 20px;
     padding-right: 40px;
 
     background-size: 100%;
-    background-color: #f2f4ff;    
+    background-color:#007ad9;    
 
     border-top-left-radius: $border-radius $border-rounding;
     border-bottom-left-radius: $border-radius $border-rounding;
@@ -25,10 +26,14 @@ $border-rounding: 50%;
     border-bottom-right-radius: $border-radius $border-rounding;
 }
 
+::placeholder {
+    color: white;
+}
+
 .todo-save-button {
     display: inline-flex;
     position: relative;
     right: 30px;
-    color: #5e5e5e;
+    color: #ffffff;
     cursor: pointer;
 }

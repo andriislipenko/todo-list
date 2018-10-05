@@ -7,9 +7,8 @@
 
             <div class="p-col-6 p-md-4 v-align-center">
                 <span class="icon">
-                    <img 
-                        src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png" 
-                        alt="icon" height="40px" width="40px">
+                    <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" alt="icon" height="40px"
+                        width="40px">
                 </span>
                 <span>{{weather.weather[0].description}}</span>
             </div>
@@ -28,42 +27,43 @@
                 <span class="fa fa-tachometer icon"></span>
                 <span>{{weather.main.pressure}}hPa</span>
             </div>
-                
 
-            
-            <div class="p-col-12">
-                <h4>City Search</h4>
+            <div class="p-col" *ngFor="let weather of fiveDaysWeather.list">
+                <div class="p-grid p-dir-col forecast-5-days">
+                    <div class="p-col-6 v-align-center">
+                        <span>{{weather.dt | weatherDate}}</span>
+                    </div>
+
+                    <div class="p-col-1 v-align-center">
+                        <span class="icon">
+                            <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
+                                alt="icon" height="25px" width="25px">
+                        </span>
+                    </div>
+
+                    <div class="p-col-5 v-align-center">
+                        <span class="fa fa-thermometer-half icon"></span>
+                        <span>{{weather.main.temp}}&#8451;</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="p-col-12 ui-inputgroup justify-center">
-                <p-autoComplete 
-                    [(ngModel)]="city" [suggestions]="searchResults"  
-                    (onSelect)="getWantedWeather()" 
-                    (completeMethod)="search($event)" field="name">
-                </p-autoComplete>
-            </div>
-                
+
         </div>
 
     </div>
 
     <div class="p-col-12 p-md-4 p-justify-end">
-        <div class="p-grid forecast-5-days" *ngFor="let weather of fiveDaysWeather.list">
-            <div class="p-col-6 v-align-center">
-                <span>{{weather.dt | weatherDate}}</span>
+        <div class="p-grid">
+            <div class="p-col-12">
+                <h4>City Search</h4>
             </div>
 
-            <div class="p-col-1 v-align-center">
-                <span class="icon">
-                    <img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png" 
-                    title="{{weather.weather[0].description}}" alt="icon" height="25px" width="25px">
-                </span>
-            </div>
-
-            <div class="p-col-5 v-align-center">
-                <span class="fa fa-thermometer-half icon"></span>
-                <span>{{weather.main.temp}}&#8451;</span>
+            <div class="p-col-12 ui-inputgroup justify-center">
+                <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWantedWeather()"
+                    (completeMethod)="search($event)" field="name">
+                </p-autoComplete>
             </div>
         </div>
+
     </div>
 </div>

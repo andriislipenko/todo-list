@@ -1,13 +1,16 @@
 $border-radius: 20px;
 $border-rounding: 50%;
 
+$background-color: #eaedfd;
+
 .todo-container{
     max-width: 100%;
     margin-left: auto; 
-    margin:3px;
+    margin:3px 0px;
+    margin-right: 15px;
 
     background-size: 100%;
-    background-color: #f2f4ff;    
+    background-color: $background-color;    
 
     border-top-left-radius: $border-radius $border-rounding;
     border-bottom-left-radius: $border-radius $border-rounding;
@@ -19,24 +22,28 @@ $border-rounding: 50%;
     border: none;
     outline: none;
 
+    padding: 0.15em 0em;
+    padding-left: 15px;
+
     width: 100%;
 
     font-family: "Lucida Console", Monaco, monospace;
     font-size: 14pt;
     color: #383841;
-    padding-left: 20px;
 
     background-size: 100%;
-    background-color: #f2f4ff;    
+    background-color: $background-color;    
 }
 
 .todo-text-container {
     cursor: pointer;
+    padding: 0px;
 }
 
 .todo-text {
     font-size: 14pt;
     color: #383841;
+    margin: 0.6em 0em;
 
     max-width: 500px;
     word-wrap: break-word;
@@ -47,12 +54,17 @@ $border-rounding: 50%;
 }
 
 .checked {
-    background-color: #acbff1 !important;
+    background-color: #849cdb !important;
     transition: background-color 0.5s linear;
 
     .todo-text{
         text-decoration-line: line-through;
         font-style: italic;
+        color: white;
+    }
+
+    .todo-date {
+        color: white;
     }
 }
 
@@ -81,6 +93,6 @@ $border-rounding: 50%;
 }
 
 .todo-date {
-    font-size: 10pt;
+    font-size: 9pt;
     color: #8b8888;
 }
