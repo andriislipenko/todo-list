@@ -79,8 +79,10 @@ export class WeatherComponent implements OnInit {
   }
 
   private cutFiveDaysForecastList() {
+    const count = this.fiveDaysWeather.cnt;
+
     this.fiveDaysWeather.list = this.fiveDaysWeather.list.filter((el, index) => {
-      return (index + 1) % 9 === 0 || index === 0;
+      return (index + 1) % Math.round(count / 5) === 0 || index === 0;
     });
   }
 }

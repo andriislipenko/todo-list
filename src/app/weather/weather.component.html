@@ -1,13 +1,19 @@
-<div class="p-grid container">
+<div class="p-grid p-dir-rev container">
+
+    <div class="p-col-12 p-md-4">
+        <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWantedWeather()"
+            (completeMethod)="search($event)" field="name" placeholder="Search">
+        </p-autoComplete>
+    </div>
 
     <div class="p-col-12 p-md-8">
-        <ng-container *ngIf="errorMessage; then error; else regular">
+        <ng-container *ngIf="!errorMessage && weather; then regular; else error">
         </ng-container>
 
         <ng-template #error>
-            <span class="error">Error: {{errorMessage}}</span>
+            <span class="error">{{errorMessage}}</span>
         </ng-template>
-    
+
         <ng-template #regular>
             <div class="p-grid p-justify-center">
                 <div class="p-col-12">
@@ -23,28 +29,39 @@
                 <div class="p-col-8 p-md-6 align-center">
                     <div class="p-grid description">
                         <div class="p-col-12 description-text">
-                            <strong>{{weather.weather[0].description}}</strong> 
+                            <strong>{{weather.weather[0].description}}</strong>
                         </div>
                         <div class="p-col-12">
-                            Pressure: 
-                            <span>{{weather.main.pressure | number : '1.0-0'}}hPa</span> 
+                            Pressure:
+                            <span>{{weather.main.pressure | number : '1.0-0'}}hPa</span>
                         </div>
                         <div class="p-col-12">
-                            Wind: 
-                            <span>{{weather.wind.speed | number : '1.0-0'}}m/s</span> 
+                            Wind:
+                            <span>{{weather.wind.speed | number : '1.0-0'}}m/s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="p-grid p-justify-center five-days-forecast-conteiner">
+                <div class="p-col-2" *ngFor="let weather of fiveDaysWeather.list">
+                    <div class="p-grid five-days-forecast-item">
+                        <div class="p-col-12">
+                            <span>{{weather.dt | weatherDate}}</span>
+                        </div>
+                        <div class="p-col-12">
+                            <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
+                            alt="icon" title="weather.weather[0].description">
+                            <span>{{weather.main.temp | number : '1.0-0'}}&#8451;</span>
                         </div>
                     </div>
                 </div>
             </div>
         </ng-template>
     </div>
-    
-    <div class="p-col-12 p-md-4">
-        <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWantedWeather()"
-            (completeMethod)="search($event)" field="name" placeholder="Search">
-        </p-autoComplete>
-    </div>
-    
+
 </div>
 
 <!-- <div class="p-grid container">
