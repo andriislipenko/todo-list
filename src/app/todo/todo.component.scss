@@ -1,40 +1,42 @@
-$border-radius: 20px;
-$border-rounding: 50%;
+$input-border-radius: 20px;
+$input-border-rounding: 50%;
+
+$input-text-color: white;
 
 .container {
     padding-top: 30px;
     max-width: 800px;
     margin: auto;
-}
 
-.todo-input {
-    border: none;
-    outline: none;
-
-    width: 100%;
-
-    font-size: 14pt;
-    color: #fcfcfc;
-    padding: 0.5em 20px;
-    padding-right: 40px;
-
-    background-size: 100%;
-    background-color:#007ad9;    
-
-    border-top-left-radius: $border-radius $border-rounding;
-    border-bottom-left-radius: $border-radius $border-rounding;
-    border-top-right-radius: $border-radius $border-rounding;
-    border-bottom-right-radius: $border-radius $border-rounding;
-}
-
-::placeholder {
-    color: white;
-}
-
-.todo-save-button {
-    display: inline-flex;
-    position: relative;
-    right: 30px;
-    color: #ffffff;
-    cursor: pointer;
+    .todo-input {
+        border: none;
+        outline: none;
+    
+        width: 100%;
+    
+        font-size: 14pt;
+        color: $input-text-color;
+        padding: 0.5em 20px;
+        padding-right: 40px;
+    
+        background-size: 100%;
+        background-color:#007ad9;    
+    
+        border-top-left-radius: $input-border-radius $input-border-rounding;
+        border-bottom-left-radius: $input-border-radius $input-border-rounding;
+        border-top-right-radius: $input-border-radius $input-border-rounding;
+        border-bottom-right-radius: $input-border-radius $input-border-rounding;
+    }
+    
+    ::placeholder {
+        color: $input-text-color;
+    }
+    
+    .todo-save-button {
+        display: inline-flex;
+        position: relative;
+        right: 30px;
+        color: #ffffff;
+        cursor: pointer;
+    }
 }

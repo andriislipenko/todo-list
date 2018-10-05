@@ -98,7 +98,6 @@ export class WeatherService {
         return new Promise((res, rej) => {
             navigator.geolocation.getCurrentPosition(
                 (pos: Position) => {
-                    console.log(pos);
                     res({
                         lat: pos.coords.latitude,
                         lon: pos.coords.longitude

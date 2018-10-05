@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { TodoService } from '../todo/todo.service';
 import { WeatherService } from '../weather/weather.service';
-import { delay } from 'rxjs/internal/operators/delay';
 
 @Component({
     selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    templateUrl: './menu.component.html'
 })
 export class MenuComponent implements OnInit {
     public readonly TODO_TITLE = 'Tasks';
@@ -21,19 +19,17 @@ export class MenuComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.items = [
+            { label: this.TODO_TITLE, routerLink: '/todo' },
+            { label: this.WEATHER_TITLE, routerLink: '/weather' }
+        ];
+
         this.getTodosAmount();
         this.getCurrentTemperature();
-
-        this.items = [
-            {label: this.TODO_TITLE, routerLink: '/todo'},
-            {label: this.WEATHER_TITLE, routerLink: '/weather'}
-        ];
     }
 
     private getTodosAmount(): void {
-        this.todoService.todosAmount
-        .pipe(delay(100))
-        .subscribe((amount: number) => {
+        this.todoService.todosAmount.subscribe((amount: number) => {
             this.items.find((item: MenuItem) => {
                 return item.label.includes(this.TODO_TITLE);
             }).label = `${this.TODO_TITLE}: ${amount}`;
@@ -41,10 +37,14 @@ export class MenuComponent implements OnInit {
     }
 
     private getCurrentTemperature(): void {
-        this.weatherService.getCurrentTemperature().subscribe((temperature: number) => {
-            this.items.find((item: MenuItem) => {
-                return item.label.includes(this.WEATHER_TITLE);
-            }).label = `${this.WEATHER_TITLE}: ${Math.round(temperature)}\u2103`;
-        });
+        this.weatherService
+            .getCurrentTemperature()
+            .subscribe((temperature: number) => {
+                this.items.find((item: MenuItem) => {
+                    return item.label.includes(this.WEATHER_TITLE);
+                }).label = `${this.WEATHER_TITLE}: ${Math.round(
+                    temperature
+                )}\u2103`;
+            });
     }
 }

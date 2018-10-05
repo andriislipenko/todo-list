@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { TodoListComponent } from './todo-list/todo-list.component';
 
 import { CheckboxModule } from 'primeng/checkbox';
-import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoComponent } from './todo.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
 
 @NgModule({
@@ -17,9 +15,7 @@ import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
     CheckboxModule,
     FormsModule,
     ConfirmDialogModule,
-    ButtonModule,
     BrowserAnimationsModule,
-    InputTextModule
   ],
   declarations: [
     TodoListComponent,

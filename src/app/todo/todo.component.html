@@ -1,10 +1,11 @@
 <div class="p-grid p-justify-center container">
+    
     <div class="p-col-12 ui-inputgroup justify-center align-center">
-        <input #noteInput type="text" class="todo-input"
-            (keydown.enter)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()"
-            placeholder="Task">
+        <input #noteInput type="text" class="todo-input" placeholder="Task"
+            (keydown.enter)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()">
 
-            <i class="fa fa-check todo-save-button" (click)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()"></i>
+        <i class="fa fa-check todo-save-button" 
+            (click)="saveTodo(noteInput.value); noteInput.value=''; noteInput.focus()"></i>
     </div>
 
     <div class="p-col-12">

@@ -7,7 +7,7 @@ import { TodoService } from './todo.service';
     styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent {
-    constructor(private todoService: TodoService) { }
+    constructor(private todoService: TodoService) {}
 
     saveTodo(text: string): void {
         this.todoService.saveTodo(text);

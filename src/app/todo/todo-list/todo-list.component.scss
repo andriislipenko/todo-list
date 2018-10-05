@@ -1,4 +1,22 @@
-.collapsible {
+.options-container {
+    text-align: right;
+
+    .options-link {
+        margin-right: 15px;
+        color: #949496;
+        cursor: pointer;
+
+        .options-icon { 
+            margin-right: 5px;
+        }
+    }
+    
+    .options-link:hover {
+        text-decoration-line: underline;
+    }
+}
+
+.collapsed {
     display: none;
 }
 
@@ -7,19 +25,5 @@
 }
 
 .danger {
-    color: rgb(218, 67, 67) !important;
-}
-
-.optional-link {
-    margin-right: 15px;
-    color: #949496;
-    cursor: pointer;
-}
-
-.optional-link:hover {
-    text-decoration-line: underline;
-}
-
-.options-container {
-    text-align: right;
+    color: #df4343 !important;
 }

@@ -1,5 +1,5 @@
 import { Injectable, Output } from '@angular/core';
-import { Todo } from './todo';
+import { Todo } from './entities/todo';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs/internal/Subject';
 
@@ -18,14 +18,13 @@ export class TodoService {
         } else {
             this.todoList = [];
         }
-
         this.updateCounter();
 
         return this.todoList;
     }
 
     public saveTodo(text: string): void {
-        if (text.length) {
+        if (text.trim().length) {
             this.todoList.unshift(new Todo(text));
             this.saveTodosToLocalStorage();
             this.updateCounter();
@@ -37,7 +36,7 @@ export class TodoService {
     }
 
     public updateTodo(id: string, text: string): void {
-        if (text.length) {
+        if (text.trim().length) {
             const todo = this.getTodo(id);
 
             todo.text = text;
@@ -54,9 +53,9 @@ export class TodoService {
     }
 
     public deleteDone(): void {
-        this.todoList.filter((todo: Todo) => todo.isDone).forEach((todo: Todo) => {
-            this.deleteTodo(todo);
-        });
+        this.todoList = this.todoList.filter((todo: Todo) => !todo.isDone);
+        this.saveTodosToLocalStorage();
+        this.updateCounter();
     }
 
     public keepSorted(todoList: Todo[]): Todo[] {
@@ -64,7 +63,7 @@ export class TodoService {
             return [];
         }
 
-        return todoList.sort((a, b) => {
+        return todoList.sort((a: Todo, b: Todo) => {
             return b.lastEditDate.getTime() - a.lastEditDate.getTime();
         }).sort((a, b) => {
             return +a.isDone - +b.isDone;

@@ -6,7 +6,7 @@ $background-color: #eaedfd;
 .todo-container{
     max-width: 100%;
     margin-left: auto; 
-    margin:3px 0px;
+    margin: 3px 0px;
     margin-right: 15px;
 
     background-size: 100%;
@@ -16,41 +16,70 @@ $background-color: #eaedfd;
     border-bottom-left-radius: $border-radius $border-rounding;
     border-top-right-radius: $border-radius $border-rounding;
     border-bottom-right-radius: $border-radius $border-rounding;
-}
 
-.edit-input {
-    border: none;
-    outline: none;
+    .todo-checkbox {
+        margin-left: 15px;
+    }
 
-    padding: 0.15em 0em;
-    padding-left: 15px;
+    .todo-text-container {
+        cursor: pointer;
+        padding: 0px;
 
-    width: 100%;
+        .todo-text {
+            font-size: 14pt;
+            color: #383841;
+            margin: 0.6em 0em;
+        
+            max-width: 500px;
+            word-wrap: break-word;
+        }
 
-    font-family: "Lucida Console", Monaco, monospace;
-    font-size: 14pt;
-    color: #383841;
+        .edit-icon {
+            margin-left: auto;
+            color: #464646;
+        }
 
-    background-size: 100%;
-    background-color: $background-color;    
-}
+        .hidden {
+            display: none;
+        }
+    }
+    
+    .todo-date {
+        font-size: 9pt;
+        color: #8b8888;
+    }
 
-.todo-text-container {
-    cursor: pointer;
-    padding: 0px;
-}
-
-.todo-text {
-    font-size: 14pt;
-    color: #383841;
-    margin: 0.6em 0em;
-
-    max-width: 500px;
-    word-wrap: break-word;
-}
-
-.todo-checkbox {
-    margin-left: 15px;
+    .delete {
+        color: rgb(218, 50, 50);
+        cursor: pointer;
+    }
+    
+    .edit-input {
+        border: none;
+        outline: none;
+    
+        padding: 0.15em 0em;
+        padding-left: 15px;
+    
+        width: 100%;
+    
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 14pt;
+        color: #383841;
+    
+        background-size: 100%;
+        background-color: $background-color;    
+    }
+    
+    .edit-save {
+        cursor: pointer;
+        color: #78f56d
+    }
+    
+    .edit-cancel {
+        cursor: pointer;
+        color: #c94141;
+    }
 }
 
 .checked {
@@ -66,33 +95,4 @@ $background-color: #eaedfd;
     .todo-date {
         color: white;
     }
-}
-
-.delete {
-    color: rgb(218, 50, 50);
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-.edit-icon {
-    margin-left: auto;
-    color: #464646;
-}
-
-.edit-save {
-    cursor: pointer;
-    color: #78f56d
-}
-
-.edit-cancel {
-    cursor: pointer;
-    color: #c94141;
-}
-
-.todo-date {
-    font-size: 9pt;
-    color: #8b8888;
 }

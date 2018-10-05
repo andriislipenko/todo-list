@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Todo } from '../../todo';
+import { Todo } from '../../entities/todo';
 import { TodoService } from '../../todo.service';
 import { ConfirmationService } from 'primeng/api';
 

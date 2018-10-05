@@ -6,16 +6,14 @@ import { WeatherComponent } from './weather/weather.component';
 
 const routes: Routes = [
     { path: 'todo', component: TodoComponent },
-    { path: 'weather', component: WeatherComponent  },
-    { path: '', redirectTo: 'todo', pathMatch: 'full' }
+    { path: 'weather', component: WeatherComponent },
+    { path: '', redirectTo: 'todo', pathMatch: 'full' },
+    { path: '**', redirectTo: 'todo' }
 ];
 
 @NgModule({
     exports: [RouterModule],
-    imports: [
-        CommonModule,
-        RouterModule.forRoot(routes)
-    ],
+    imports: [CommonModule, RouterModule.forRoot(routes)],
     declarations: []
 })
-export class RoutingModule { }
+export class RoutingModule {}

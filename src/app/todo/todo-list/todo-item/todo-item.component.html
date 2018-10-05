@@ -7,8 +7,7 @@
             <input type="checkbox" class="ui-chkbox todo-checkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
         </div>
 
-        <div 
-            class="p-col-6 p-md-8 align-center todo-text-container" 
+        <div class="p-col-6 p-md-8 align-center todo-text-container" 
             (click)="editTodo(todo.id);"
             (mouseenter)="isHover = true"
             (mouseleave)="isHover = false">
