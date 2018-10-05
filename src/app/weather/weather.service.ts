@@ -46,6 +46,9 @@ export class WeatherService {
             });
 
             return obs;
+        },
+        (e: PositionError) => {
+            throw new Error('You denied goelocation!!!');
         });
     }
 
@@ -94,14 +97,15 @@ export class WeatherService {
     private getPosition(): Promise<{ lat: number; lon: number }> {
         return new Promise((res, rej) => {
             navigator.geolocation.getCurrentPosition(
-                pos => {
+                (pos: Position) => {
+                    console.log(pos);
                     res({
                         lat: pos.coords.latitude,
                         lon: pos.coords.longitude
                     });
                 },
-                e => {
-                    res({ lat: this.DEFAULT_LAT, lon: this.DEFAULT_LON });
+                (e: PositionError) => {
+                    rej(e);
                 }
             );
         });

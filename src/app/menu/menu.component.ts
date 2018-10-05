@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
         this.weatherService.getCurrentTemperature().subscribe((temperature: number) => {
             this.items.find((item: MenuItem) => {
                 return item.label.includes(this.WEATHER_TITLE);
-            }).label = `${this.WEATHER_TITLE}: ${temperature}\u2103`;
+            }).label = `${this.WEATHER_TITLE}: ${Math.round(temperature)}\u2103`;
         });
     }
 }

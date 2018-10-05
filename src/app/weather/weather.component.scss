@@ -1,23 +1,40 @@
 .container {
     max-width: 800px;
     margin: auto;
+    padding-top: 30px;
+}
+.weather-header {
+    font-size: 20pt;
 }
 
-.v-align-center {
-    display:flex;
-    align-items: center;
-    justify-content: center;
+.weather-date {
+    margin-right: 10px;
+    font-size: 12pt;
+    text-align: center;
 }
 
-.icon {
-    margin-right: 5px;
+.weather-icon {
+    max-width: 100px;
 }
 
-// .forecast-5-days {
-//     border-bottom: 3px inset #a4c7f5;
-//     margin: auto;
-//     margin: 5px;
-// }
+.description {
+    padding: 0px 20px;
+    padding-top: 20px;
+    text-align: left;
+    font-size: 12pt;
+    color: #616161;
+}
+
+.description-text {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12pt;
+    color: #363636;
+}
+
+.temperature {
+    font-size: 30pt;
+}
 
 .search-result {
     cursor: pointer;
@@ -28,5 +45,12 @@
     background-color: #a8cbf8;
     border: 3px outset #a4c7f5;
 }
+
+.error {
+    font-size: 18pt;
+    text-transform: uppercase;
+    color: rgb(221, 79, 79);
+}
+
 
 

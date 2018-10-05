@@ -11,11 +11,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
-  weather: Weather;
-  fiveDaysWeather: FiveDaysWeather;
+  public weather: Weather;
+  public fiveDaysWeather: FiveDaysWeather;
 
-  city: City;
-  searchResults: City[];
+  public city: City;
+  public searchResults: City[];
+
+  public errorMessage: string = null;
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
@@ -37,6 +39,8 @@ export class WeatherComponent implements OnInit {
         this.weather = weather;
         this.getFiveDaysForecastById(this.weather.id);
       });
+    }).catch((error: PositionError) => {
+        this.errorMessage = error.message;
     });
   }
 
@@ -57,13 +61,13 @@ export class WeatherComponent implements OnInit {
   }
 
   getWantedWeather() {
-    console.log(this.city);
     if (!this.city.id) {
       return;
     }
     this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
       this.weather = wthr;
       this.getFiveDaysForecastById(this.weather.id);
+      this.errorMessage = null;
     });
   }
 

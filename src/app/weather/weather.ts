@@ -11,6 +11,10 @@ export class Weather {
         description: string,
         icon: string
     }[];
+    wind: {
+        spead: number;
+        deg: string;
+    };
 }
 
 export class FiveDaysWeather {
@@ -27,5 +31,5 @@ export class FiveDaysWeather {
         weather: {
             main: string
         }[]
-    }[] = [];
+    }[];
 }
