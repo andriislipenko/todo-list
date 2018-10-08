@@ -5,6 +5,9 @@ import { City } from './entities/city';
 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FiveDaysWeather } from './entities/five-days-weather';
+import { Observable } from 'rxjs/internal/Observable';
+import { WeatherSearchEvent } from './entities/weather-search-event';
+import { FiveDaysWeatherListItem } from './entities/five-days-weather-list-item';
 
 @Component({
     selector: 'app-weather',
@@ -25,7 +28,7 @@ export class WeatherComponent implements OnInit {
         this.getWeather();
     }
 
-    public getWeather() {
+    public getWeather(): void {
         if (!this.weatherService.currentCityWeather) {
             this.getWeatherByLocation();
         } else {
@@ -34,13 +37,16 @@ export class WeatherComponent implements OnInit {
         }
     }
 
-    getWeatherByLocation() {
+    public getWeatherByLocation() {
         this.weatherService
             .getWeatherByLocation()
-            .then(obs => {
-                obs.subscribe(weather => {
+            .then((obs: Observable<Weather>) => {
+                obs.subscribe((weather: Weather) => {
                     this.weather = weather;
                     this.getFiveDaysForecastById(this.weather.id);
+                },
+                (e: Error) => {
+                    this.errorMessage = 'Server not responding!!!';
                 });
             })
             .catch((error: PositionError) => {
@@ -48,9 +54,9 @@ export class WeatherComponent implements OnInit {
             });
     }
 
-    search(e): void {
+    public search(event: WeatherSearchEvent): void {
         this.weatherService
-            .searchCity(e.query)
+            .searchCity(event.query)
             .pipe(
                 debounceTime(500),
                 distinctUntilChanged()
@@ -64,31 +70,32 @@ export class WeatherComponent implements OnInit {
             });
     }
 
-    getWantedWeather() {
+    public getWantedWeather(): void {
         if (!this.city.id) {
             return;
         }
-        this.weatherService.getWeatherById(this.city.id).subscribe(wthr => {
-            this.weather = wthr;
+
+        this.weatherService.getWeatherById(this.city.id).subscribe((weather: Weather) => {
+            this.weather = weather;
             this.getFiveDaysForecastById(this.weather.id);
             this.errorMessage = null;
         });
     }
 
-    getFiveDaysForecastById(id: number) {
+    public getFiveDaysForecastById(id: number): void {
         this.weatherService
             .getFiveDaysForecastById(id)
-            .subscribe((wthr: FiveDaysWeather) => {
-                this.fiveDaysWeather = wthr;
+            .subscribe((weather: FiveDaysWeather) => {
+                this.fiveDaysWeather = weather;
                 this.cutFiveDaysForecastList();
             });
     }
 
-    private cutFiveDaysForecastList() {
+    private cutFiveDaysForecastList(): void {
         const count = this.fiveDaysWeather.cnt;
 
         this.fiveDaysWeather.list = this.fiveDaysWeather.list.filter(
-            (el, index) => {
+            (el: FiveDaysWeatherListItem, index: number) => {
                 return (index + 1) % Math.round(count / 5) === 0;
             }
         );

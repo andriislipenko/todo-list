@@ -6,18 +6,16 @@ import { map } from 'rxjs/operators';
 import { Weather } from './entities/weather';
 import { of } from 'rxjs/internal/observable/of';
 import { Subject } from 'rxjs/internal/Subject';
+import { Coordinates } from './entities/coordinates';
 
 @Injectable({
     providedIn: 'root'
 })
 export class WeatherService {
-    private readonly DEFAULT_LAT = 51.50853;
-    private readonly DEFAULT_LON = -0.12574;
     private UNIT = 'metric';
+    private API_KEY = '&APPID=965b3cabbaa3121b8043da6d5e373b79';
     private API_PREFIX = 'http://api.openweathermap.org/data/2.5/';
-    private API_SUFIX = `&units=${
-        this.UNIT
-    }&APPID=c97bbde2af8f0585a694dc2139aa1355`;
+    private API_SUFIX = `&units=${this.UNIT}${this.API_KEY}`;
     private CITIES_INFO_URL = 'assets/current.city.list.min.json';
 
     public currentCityWeather: Weather = null;
@@ -34,10 +32,8 @@ export class WeatherService {
     }
 
     public getWeatherByLocation(): Promise<Observable<any>> {
-        return this.getPosition().then(position => {
-            const url = `${this.API_PREFIX}weather?lat=${position.lat}&lon=${
-                position.lon
-            }${this.API_SUFIX}`;
+        return this.getPosition().then((position: Coordinates) => {
+            const url = `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${this.API_SUFIX}`;
 
             const obs = this.http.get(url);
             obs.subscribe((weather: Weather) => {
@@ -76,9 +72,9 @@ export class WeatherService {
         }
 
         return this.http.get<City[]>(this.CITIES_INFO_URL).pipe(
-            map(city => {
+            map((city: City[]) => {
                 return city.filter(
-                    (c: City, i, a) => c.name.toLowerCase().indexOf(term) > -1
+                    (c: City) => c.name.toLowerCase().indexOf(term) > -1
                 );
             })
         );
@@ -93,7 +89,7 @@ export class WeatherService {
         this.currentTemperature.next(this.currentCityWeather.main.temp);
     }
 
-    private getPosition(): Promise<{ lat: number; lon: number }> {
+    private getPosition(): Promise<Coordinates> {
         return new Promise((res, rej) => {
             navigator.geolocation.getCurrentPosition(
                 (pos: Position) => {

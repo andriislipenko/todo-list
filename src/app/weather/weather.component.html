@@ -15,9 +15,9 @@
         </ng-template>
 
         <ng-template #regular>
-            <app-current-weather></app-current-weather>
+            <app-current-weather [weather]="weather"></app-current-weather>
             <hr>
-            <app-five-days-weather></app-five-days-weather>
+            <app-five-days-weather [fiveDaysWeather]="fiveDaysWeather"></app-five-days-weather>
         </ng-template>
     </div>
 
