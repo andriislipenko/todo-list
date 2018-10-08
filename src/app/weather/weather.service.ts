@@ -70,8 +70,9 @@ export class WeatherService {
 
     public searchCity(term: string): Observable<City[]> {
         term = term.toLowerCase();
+        term = term.trim();
 
-        if (!term.trim()) {
+        if (!term) {
             return of([]);
         }
 

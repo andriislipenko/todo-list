@@ -2,7 +2,7 @@
 
     <div class="p-col-12 p-md-4">
         <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWeatherById(city.id)"
-            (completeMethod)="search($event)" field="name" placeholder="{{city.name || 'Search'}}">
+            (completeMethod)="search($event)" field="name" placeholder="Search">
         </p-autoComplete>
     </div>
 

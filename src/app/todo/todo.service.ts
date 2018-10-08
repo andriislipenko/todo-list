@@ -10,6 +10,8 @@ export class TodoService {
     public todoList: Todo[] = null;
     public todosAmount = new Subject<number>();
 
+    constructor() {}
+
     public getTodoList(): Todo[] {
         const todos = localStorage.getItem('todos');
 
@@ -74,6 +76,7 @@ export class TodoService {
         if (!this.todoList) {
             this.getTodoList();
         }
+
         return this.todosAmount.asObservable();
     }
 

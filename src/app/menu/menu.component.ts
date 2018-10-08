@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
     }
 
     private getTodosAmount(): void {
-        this.todoService.todosAmount.subscribe((amount: number) => {
+        this.todoService.getTodosAmount().subscribe((amount: number) => {
             this.items.find((item: MenuItem) => {
                 return item.label.includes(this.TODO_TITLE);
             }).generatedLabelPart = amount;

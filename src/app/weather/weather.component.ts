@@ -100,6 +100,7 @@ export class WeatherComponent implements OnInit {
     private getCurrentCity(): void {
         this.weatherService.searchCityById(this.weatherService.currentCityWeather.id).subscribe((city: City) => {
             this.city = city;
+            this.city.name = `${this.city.name} ${this.city.country}`;
         });
     }
 
