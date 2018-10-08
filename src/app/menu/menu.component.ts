@@ -35,6 +35,8 @@ export class MenuComponent implements OnInit {
                 return item.label.includes(this.TODO_TITLE);
             }).generatedLabelPart = amount;
         });
+
+        this.todoService.getTodoList();
     }
 
     private getCurrentTemperature(): void {

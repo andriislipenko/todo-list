@@ -73,10 +73,6 @@ export class TodoService {
     }
 
     public getTodosAmount(): Observable<number> {
-        if (!this.todoList) {
-            this.getTodoList();
-        }
-
         return this.todosAmount.asObservable();
     }
 
