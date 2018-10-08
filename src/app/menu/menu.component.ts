@@ -43,7 +43,7 @@ export class MenuComponent implements OnInit {
             .subscribe((temperature: number) => {
                 this.items.find((item: MenuItem) => {
                     return item.label.includes(this.WEATHER_TITLE);
-                }).generatedLabelPart = `${temperature}\u2103`;
+                }).generatedLabelPart = `${Math.round(temperature)}\u2103`;
             });
     }
 }

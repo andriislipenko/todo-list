@@ -37,10 +37,10 @@ export class WeatherComponent implements OnInit {
         }
     }
 
-    public getWeatherByLocation() {
+    public getWeatherByLocation(): void {
         this.weatherService
             .getWeatherByLocation()
-            .then((obs: Observable<Weather>) => {
+            .subscribe((obs: Observable<Weather>) => {
                 obs.subscribe((weather: Weather) => {
                     this.weather = weather;
                     this.getFiveDaysForecastById(this.weather.id);
@@ -48,8 +48,8 @@ export class WeatherComponent implements OnInit {
                 (e: Error) => {
                     this.errorMessage = 'Server not responding!!!';
                 });
-            })
-            .catch((error: PositionError) => {
+            },
+            (error: PositionError) => {
                 this.errorMessage = error.message;
             });
     }

@@ -7,6 +7,7 @@ import { Weather } from './entities/weather';
 import { of } from 'rxjs/internal/observable/of';
 import { Subject } from 'rxjs/internal/Subject';
 import { Coordinates } from './entities/coordinates';
+import { from } from 'rxjs/internal/observable/from';
 
 @Injectable({
     providedIn: 'root'
@@ -24,27 +25,24 @@ export class WeatherService {
     constructor(private http: HttpClient) {}
 
     public getCurrentTemperature(): Observable<number> {
-        if (!this.currentCityWeather) {
-            this.getWeatherByLocation();
-        }
+        this.getWeatherByLocation().subscribe((obs: Observable<Weather>) => {
+            obs.subscribe((weather: Weather) => {
+                this.updateCurrentCityWeather(weather);
+            });
+        });
 
         return this.currentTemperature.asObservable();
     }
 
-    public getWeatherByLocation(): Promise<Observable<any>> {
-        return this.getPosition().then((position: Coordinates) => {
+    public getWeatherByLocation(): Observable<any> {
+        return from(this.getPosition().then((position: Coordinates) => {
             const url = `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${this.API_SUFIX}`;
 
-            const obs = this.http.get(url);
-            obs.subscribe((weather: Weather) => {
-                this.updateCurrentCityWeather(weather);
-            });
-
-            return obs;
+            return this.http.get(url);
         },
         (e: PositionError) => {
             throw new Error('You denied goelocation!!!');
-        });
+        }));
     }
 
     public getWeatherById(id: number): Observable<any> {
