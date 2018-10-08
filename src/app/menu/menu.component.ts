@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { TodoService } from '../todo/todo.service';
 import { WeatherService } from '../weather/weather.service';
+import { MenuItem } from './menu';
 
 @Component({
     selector: 'app-menu',
-    templateUrl: './menu.component.html'
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
     public readonly TODO_TITLE = 'Tasks';
@@ -32,7 +33,7 @@ export class MenuComponent implements OnInit {
         this.todoService.todosAmount.subscribe((amount: number) => {
             this.items.find((item: MenuItem) => {
                 return item.label.includes(this.TODO_TITLE);
-            }).label = `${this.TODO_TITLE}: ${amount}`;
+            }).generatedLabelPart = amount;
         });
     }
 
@@ -42,9 +43,7 @@ export class MenuComponent implements OnInit {
             .subscribe((temperature: number) => {
                 this.items.find((item: MenuItem) => {
                     return item.label.includes(this.WEATHER_TITLE);
-                }).label = `${this.WEATHER_TITLE}: ${Math.round(
-                    temperature
-                )}\u2103`;
+                }).generatedLabelPart = `${temperature}\u2103`;
             });
     }
 }

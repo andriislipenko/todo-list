@@ -1,1 +1,13 @@
-<p-tabMenu [model]="items"></p-tabMenu>
+<div class="menu-container">
+    <ul class="menu">
+        <li class="menu-item" *ngFor="let item of items">
+            <a class="menu-link"
+                [routerLink]="item.routerLink" 
+                routerLinkActive="menu-link-active">
+                <span class="menu-text">
+                    {{item.label}}: <span class="menu-text-generated">{{item.generatedLabelPart}}</span>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>

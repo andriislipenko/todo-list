@@ -1,8 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { TabMenuModule } from 'primeng/tabmenu';
-
 import { AppComponent } from './app.component';
 import { RoutingModule } from './routing.module';
 import { TodoModule } from './todo/todo.module';
@@ -18,8 +15,7 @@ import { MenuComponent } from './menu/menu.component';
         BrowserModule,
         RoutingModule,
         TodoModule,
-        WeatherModule,
-        TabMenuModule
+        WeatherModule
     ],
     providers: [],
     bootstrap: [ AppComponent ]
