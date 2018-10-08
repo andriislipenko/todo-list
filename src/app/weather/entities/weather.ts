@@ -1,6 +1,6 @@
 export class Weather {
     name: string;
-    dt: Date | number;
+    dt: number;
     id: number;
     main: {
         temp: number,
@@ -12,7 +12,7 @@ export class Weather {
         icon: string
     }[];
     wind: {
-        spead: number;
+        speed: number;
         deg: string;
     };
 }

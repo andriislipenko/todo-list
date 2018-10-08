@@ -25,11 +25,13 @@ export class WeatherService {
     constructor(private http: HttpClient) {}
 
     public getCurrentTemperature(): Observable<number> {
-        this.getWeatherByLocation().subscribe((obs: Observable<Weather>) => {
-            obs.subscribe((weather: Weather) => {
-                this.updateCurrentCityWeather(weather);
+        if (!this.currentCityWeather) {
+            this.getWeatherByLocation().subscribe((obs: Observable<Weather>) => {
+                obs.subscribe((weather: Weather) => {
+                    this.updateCurrentCityWeather(weather);
+                });
             });
-        });
+        }
 
         return this.currentTemperature.asObservable();
     }
