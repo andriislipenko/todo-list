@@ -9,6 +9,7 @@ import { WeatherService } from '../weather.service';
 })
 export class CurrentWeatherComponent {
     @Input() weather: Weather;
+    @Input() isGeo: boolean;
 
     constructor() {}
 }

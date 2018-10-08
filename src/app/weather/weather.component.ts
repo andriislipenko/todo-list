@@ -3,11 +3,12 @@ import { WeatherService } from './weather.service';
 import { Weather } from './entities/weather';
 import { City } from './entities/city';
 
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
 import { FiveDaysWeather } from './entities/five-days-weather';
 import { Observable } from 'rxjs/internal/Observable';
 import { WeatherSearchEvent } from './entities/weather-search-event';
 import { FiveDaysWeatherListItem } from './entities/five-days-weather-list-item';
+import { ObservableInput } from 'rxjs/internal/types';
 
 @Component({
     selector: 'app-weather',
@@ -18,8 +19,10 @@ export class WeatherComponent implements OnInit {
     public weather: Weather;
     public fiveDaysWeather: FiveDaysWeather;
 
-    public city: City;
+    public city: City = new City();
     public searchResults: City[];
+
+    public isGeo = false;
 
     public errorMessage: string = null;
     constructor(private weatherService: WeatherService) {}
@@ -32,26 +35,41 @@ export class WeatherComponent implements OnInit {
         if (!this.weatherService.currentCityWeather) {
             this.getWeatherByLocation();
         } else {
-            this.weather = this.weatherService.currentCityWeather;
-            this.getFiveDaysForecastById(this.weather.id);
+            this.getWeatherById(this.weatherService.currentCityWeather.id);
+            this.getCurrentCity();
         }
     }
 
     public getWeatherByLocation(): void {
         this.weatherService
             .getWeatherByLocation()
-            .subscribe((obs: Observable<Weather>) => {
-                obs.subscribe((weather: Weather) => {
-                    this.weather = weather;
-                    this.getFiveDaysForecastById(this.weather.id);
-                },
-                (e: Error) => {
-                    this.errorMessage = 'Server not responding!!!';
-                });
-            },
-            (error: PositionError) => {
-                this.errorMessage = error.message;
+            .pipe(
+                catchError(
+                    (e: any, caught: Observable<{}>): ObservableInput<{}> => {
+                        this.errorMessage = e.message;
+                        return e;
+                    }
+                )
+            )
+            .subscribe((weather: Weather) => {
+                this.weather = weather;
+                this.getFiveDaysForecastById(this.weather.id);
+                this.isGeo = true;
             });
+    }
+
+    public getWeatherById(id: number): void {
+        this.weatherService.getWeatherById(id).pipe(
+            catchError(
+                (e: any, caught: Observable<{}>): ObservableInput<{}> => {
+                    this.errorMessage = e.message;
+                    return e;
+        })).subscribe((weather: Weather) => {
+            this.weather = weather;
+            this.getFiveDaysForecastById(this.weather.id);
+            this.isGeo = false;
+            this.errorMessage = null;
+        });
     }
 
     public search(event: WeatherSearchEvent): void {
@@ -70,18 +88,6 @@ export class WeatherComponent implements OnInit {
             });
     }
 
-    public getWantedWeather(): void {
-        if (!this.city.id) {
-            return;
-        }
-
-        this.weatherService.getWeatherById(this.city.id).subscribe((weather: Weather) => {
-            this.weather = weather;
-            this.getFiveDaysForecastById(this.weather.id);
-            this.errorMessage = null;
-        });
-    }
-
     public getFiveDaysForecastById(id: number): void {
         this.weatherService
             .getFiveDaysForecastById(id)
@@ -89,6 +95,12 @@ export class WeatherComponent implements OnInit {
                 this.fiveDaysWeather = weather;
                 this.cutFiveDaysForecastList();
             });
+    }
+
+    private getCurrentCity(): void {
+        this.weatherService.searchCityById(this.weatherService.currentCityWeather.id).subscribe((city: City) => {
+            this.city = city;
+        });
     }
 
     private cutFiveDaysForecastList(): void {

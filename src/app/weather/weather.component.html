@@ -1,8 +1,8 @@
 <div class="p-grid p-dir-rev container">
 
     <div class="p-col-12 p-md-4">
-        <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWantedWeather()"
-            (completeMethod)="search($event)" field="name" placeholder="Search">
+        <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWeatherById(city.id)"
+            (completeMethod)="search($event)" field="name" placeholder="{{city.name || 'Search'}}">
         </p-autoComplete>
     </div>
 
@@ -15,7 +15,7 @@
         </ng-template>
 
         <ng-template #regular>
-            <app-current-weather [weather]="weather"></app-current-weather>
+            <app-current-weather [weather]="weather" [isGeo]='isGeo'></app-current-weather>
             <hr>
             <app-five-days-weather [fiveDaysWeather]="fiveDaysWeather"></app-five-days-weather>
         </ng-template>

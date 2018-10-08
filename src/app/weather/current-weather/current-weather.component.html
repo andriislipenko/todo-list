@@ -1,6 +1,10 @@
 <div class="p-grid p-justify-center">
     <div class="p-col-12">
-        <span class="weather-header">Weather for {{weather.name}}</span>
+        <span class="weather-header">
+            Weather for {{weather.name}} 
+            <i *ngIf="isGeo" class="fa fa-map-marker"></i>
+            <i *ngIf="!isGeo" class="fa fa-search"></i>
+        </span>
     </div>
     <div class="p-col-3 p-md-3">
         <img class="weather-icon" src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" alt="icon">

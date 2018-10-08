@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { City } from './entities/city';
-import { map } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { Weather } from './entities/weather';
 import { of } from 'rxjs/internal/observable/of';
 import { Subject } from 'rxjs/internal/Subject';
@@ -26,10 +26,8 @@ export class WeatherService {
 
     public getCurrentTemperature(): Observable<number> {
         if (!this.currentCityWeather) {
-            this.getWeatherByLocation().subscribe((obs: Observable<Weather>) => {
-                obs.subscribe((weather: Weather) => {
-                    this.updateCurrentCityWeather(weather);
-                });
+            this.getWeatherByLocation().subscribe((weather: Weather) => {
+                this.updateCurrentTemperature(weather.main.temp);
             });
         }
 
@@ -37,14 +35,20 @@ export class WeatherService {
     }
 
     public getWeatherByLocation(): Observable<any> {
-        return from(this.getPosition().then((position: Coordinates) => {
-            const url = `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${this.API_SUFIX}`;
+        return from(this.getPosition()).pipe(
+            catchError((e: PositionError) => {
+                throw new Error('You denied goelocation!!!');
+            }),
+            switchMap((position: Coordinates) => this.getWeather(position))
+        );
+    }
 
-            return this.http.get(url);
-        },
-        (e: PositionError) => {
-            throw new Error('You denied goelocation!!!');
-        }));
+    private getWeather(position: Coordinates): Observable<Weather> {
+        return this.http.get<Weather>(
+            `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${
+                this.API_SUFIX
+            }`
+        );
     }
 
     public getWeatherById(id: number): Observable<any> {
@@ -80,13 +84,23 @@ export class WeatherService {
         );
     }
 
-    private updateCurrentCityWeather(weather: Weather): void {
-        this.currentCityWeather = weather;
-        this.updateCurrentTemperature();
+    public searchCityById(id: number): Observable<City> {
+        return this.http.get<City[]>(this.CITIES_INFO_URL).pipe(
+            map((city: City[]) => {
+                return city.find(
+                    (c: City) => c.id === id
+                );
+            })
+        );
     }
 
-    private updateCurrentTemperature(): void {
-        this.currentTemperature.next(this.currentCityWeather.main.temp);
+    private updateCurrentCityWeather(weather: Weather): void {
+        this.currentCityWeather = weather;
+        this.updateCurrentTemperature(this.currentCityWeather.main.temp);
+    }
+
+    private updateCurrentTemperature(temperature: number): void {
+        this.currentTemperature.next(temperature);
     }
 
     private getPosition(): Promise<Coordinates> {
