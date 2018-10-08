@@ -5,7 +5,6 @@ import { City } from './entities/city';
 import { map } from 'rxjs/operators';
 import { Weather } from './entities/weather';
 import { of } from 'rxjs/internal/observable/of';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({

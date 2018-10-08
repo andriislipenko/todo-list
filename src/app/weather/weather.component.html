@@ -15,50 +15,9 @@
         </ng-template>
 
         <ng-template #regular>
-            <div class="p-grid p-justify-center">
-                <div class="p-col-12">
-                    <span class="weather-header">Weather for {{weather.name}}</span>
-                </div>
-                <div class="p-col-3 p-md-3">
-                    <img class="weather-icon" src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" alt="icon">
-                    <span class="weather-date">{{ weather.dt * 1000 | date : 'dd.MM.yy, HH:mm' }}</span>
-                </div>
-                <div class="p-col-3 p-md-3 temperature align-center">
-                    <span>{{weather.main.temp | number : '1.0-0'}}&#8451;</span>
-                </div>
-                <div class="p-col-8 p-md-6 align-center">
-                    <div class="p-grid description">
-                        <div class="p-col-12 description-text">
-                            <strong>{{weather.weather[0].description}}</strong>
-                        </div>
-                        <div class="p-col-12">
-                            Pressure:
-                            <span>{{weather.main.pressure | number : '1.0-0'}}hPa</span>
-                        </div>
-                        <div class="p-col-12">
-                            Wind:
-                            <span>{{weather.wind.speed | number : '1.0-0'}}m/s</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <app-current-weather></app-current-weather>
             <hr>
-
-            <div class="p-grid p-justify-center five-days-forecast-conteiner">
-                <div class="p-col-2" *ngFor="let weather of fiveDaysWeather.list">
-                    <div class="p-grid five-days-forecast-item">
-                        <div class="p-col-12">
-                            <span class="weather-date-small">{{weather.dt * 1000 | date : 'dd.MM'}}</span>
-                        </div>
-                        <div class="p-col-12">
-                            <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
-                            alt="icon" title="weather.weather[0].description">
-                            <span>{{weather.main.temp | number : '1.0-0'}}&#8451;</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <app-five-days-weather></app-five-days-weather>
         </ng-template>
     </div>
 

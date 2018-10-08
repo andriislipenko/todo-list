@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
+import { FiveDaysWeatherComponent } from './five-days-weather/five-days-weather.component';
 
 @NgModule({
     imports: [
@@ -17,7 +19,9 @@ import { ButtonModule } from 'primeng/button';
         ButtonModule
     ],
     declarations: [
-        WeatherComponent
+        WeatherComponent,
+        CurrentWeatherComponent,
+        FiveDaysWeatherComponent
     ],
     exports: [
         WeatherComponent

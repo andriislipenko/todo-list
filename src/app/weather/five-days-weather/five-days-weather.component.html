@@ -1,0 +1,14 @@
+<div class="p-grid p-justify-center five-days-forecast-conteiner" *ngIf='fiveDaysWeather'>
+    <div class="p-col-2" *ngFor="let weather of fiveDaysWeather.list">
+        <div class="p-grid five-days-forecast-item">
+            <div class="p-col-12">
+                <span class="weather-date-small">{{weather.dt * 1000 | date : 'dd.MM'}}</span>
+            </div>
+            <div class="p-col-12">
+                <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
+                alt="icon" title="weather.weather[0].description">
+                <span>{{weather.main.temp | number : '1.0-0'}}&#8451;</span>
+            </div>
+        </div>
+    </div>
+</div>
