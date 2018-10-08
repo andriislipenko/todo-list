@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
-import { Weather, FiveDaysWeather } from './weather';
-import { City } from './city';
+import { Weather } from './entities/weather';
+import { City } from './entities/city';
 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FiveDaysWeather } from './entities/five-days-weather';
 
 @Component({
   selector: 'app-weather',
