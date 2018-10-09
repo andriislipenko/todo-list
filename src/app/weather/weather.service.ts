@@ -17,7 +17,7 @@ import { map } from 'rxjs/internal/operators/map';
 export class WeatherService {
     private UNIT = 'metric';
     private API_KEY = '&APPID=965b3cabbaa3121b8043da6d5e373b79';
-    private API_PREFIX = 'http://api.openweathermap.org/data/2.5/';
+    private API_PREFIX = 'https://api.openweathermap.org/data/2.5/';
     private API_SUFIX = `&units=${this.UNIT}${this.API_KEY}`;
     private CITIES_INFO_URL = 'assets/current.city.list.min.json';
 
