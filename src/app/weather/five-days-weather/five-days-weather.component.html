@@ -5,7 +5,7 @@
                 <span class="weather-date-small">{{weather.dt * 1000 | date : 'dd.MM'}}</span>
             </div>
             <div class="p-col-12">
-                <img src="/assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
+                <img src="assets/weather-icons/{{weather.weather[0].icon}}.svg" title="{{weather.weather[0].description}}"
                 alt="icon" title="weather.weather[0].description">
                 <span>{{weather.main.temp | number : '1.0-0'}}&#8451;</span>
             </div>
