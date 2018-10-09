@@ -39,27 +39,16 @@ export class WeatherService {
             catchError((e: PositionError) => {
                 throw new Error('You denied goelocation!!!');
             }),
-            switchMap((position: Coordinates) => this.getWeather(position))
+            switchMap((position: Coordinates) => this.requestLocalWeather(position))
         );
     }
 
-    private getWeather(position: Coordinates): Observable<Weather> {
-        return this.http.get<Weather>(
-            `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${
-                this.API_SUFIX
-            }`
-        );
-    }
-
-    public getWeatherById(id: number): Observable<any> {
-        const url = `${this.API_PREFIX}weather?id=${id}${this.API_SUFIX}`;
-
-        const obs = this.http.get(url);
-        obs.subscribe((weather: Weather) => {
+    public getWeatherById(id: number): Observable<Weather> {
+        return this.requestWeatherById(id).pipe(switchMap((weather: Weather) => {
             this.updateCurrentCityWeather(weather);
-        });
+            return of(weather);
+        }));
 
-        return obs;
     }
 
     public getFiveDaysForecastById(id: number): Observable<any> {
@@ -93,6 +82,18 @@ export class WeatherService {
                 );
             })
         );
+    }
+
+    private requestLocalWeather(position: Coordinates): Observable<Weather> {
+        return this.http.get<Weather>(
+            `${this.API_PREFIX}weather?lat=${position.lat}&lon=${position.lon}${
+                this.API_SUFIX
+            }`
+        );
+    }
+
+    private requestWeatherById(id: number): Observable<any> {
+        return this.http.get(`${this.API_PREFIX}weather?id=${id}${this.API_SUFIX}`);
     }
 
     private updateCurrentCityWeather(weather: Weather): void {
