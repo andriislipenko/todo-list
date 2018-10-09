@@ -3,12 +3,14 @@ import { WeatherService } from './weather.service';
 import { Weather } from './entities/weather';
 import { City } from './entities/city';
 
-import { debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
 import { FiveDaysWeather } from './entities/five-days-weather';
 import { Observable } from 'rxjs/internal/Observable';
 import { WeatherSearchEvent } from './entities/weather-search-event';
 import { FiveDaysWeatherListItem } from './entities/five-days-weather-list-item';
 import { ObservableInput } from 'rxjs/internal/types';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 
 @Component({
     selector: 'app-weather',
@@ -23,8 +25,8 @@ export class WeatherComponent implements OnInit {
     public searchResults: City[];
 
     public isGeo = false;
-
     public errorMessage: string = null;
+
     constructor(private weatherService: WeatherService) {}
 
     ngOnInit() {

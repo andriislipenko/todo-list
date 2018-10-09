@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { City } from './entities/city';
-import { map, catchError, switchMap } from 'rxjs/operators';
 import { Weather } from './entities/weather';
 import { of } from 'rxjs/internal/observable/of';
 import { Subject } from 'rxjs/internal/Subject';
 import { Coordinates } from './entities/coordinates';
 import { from } from 'rxjs/internal/observable/from';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
     providedIn: 'root'
@@ -23,16 +25,6 @@ export class WeatherService {
     public currentTemperature = new Subject<number>();
 
     constructor(private http: HttpClient) {}
-
-    public getCurrentTemperature(): Observable<number> {
-        if (!this.currentCityWeather) {
-            this.getWeatherByLocation().subscribe((weather: Weather) => {
-                this.updateCurrentTemperature(weather.main.temp);
-            });
-        }
-
-        return this.currentTemperature.asObservable();
-    }
 
     public getWeatherByLocation(): Observable<any> {
         return from(this.getPosition()).pipe(
@@ -52,20 +44,17 @@ export class WeatherService {
     }
 
     public getFiveDaysForecastById(id: number): Observable<any> {
-        const url = `${this.API_PREFIX}forecast?id=${id}${this.API_SUFIX}`;
-
-        return this.http.get(url);
+        return this.http.get(`${this.API_PREFIX}forecast?id=${id}${this.API_SUFIX}`);
     }
 
     public searchCity(term: string): Observable<City[]> {
-        term = term.toLowerCase();
-        term = term.trim();
+        term = term.toLowerCase().trim();
 
         if (!term) {
             return of([]);
         }
 
-        return this.http.get<City[]>(this.CITIES_INFO_URL).pipe(
+        return this.requestCitiesInfo().pipe(
             map((city: City[]) => {
                 return city.filter(
                     (c: City) => c.name.toLowerCase().indexOf(term) > -1
@@ -75,13 +64,23 @@ export class WeatherService {
     }
 
     public searchCityById(id: number): Observable<City> {
-        return this.http.get<City[]>(this.CITIES_INFO_URL).pipe(
+        return this.requestCitiesInfo().pipe(
             map((city: City[]) => {
                 return city.find(
                     (c: City) => c.id === id
                 );
             })
         );
+    }
+
+    public getCurrentTemperature(): Observable<number> {
+        if (!this.currentCityWeather) {
+            this.getWeatherByLocation().subscribe((weather: Weather) => {
+                this.updateCurrentTemperature(weather.main.temp);
+            });
+        }
+
+        return this.currentTemperature.asObservable();
     }
 
     private requestLocalWeather(position: Coordinates): Observable<Weather> {
@@ -94,6 +93,10 @@ export class WeatherService {
 
     private requestWeatherById(id: number): Observable<any> {
         return this.http.get(`${this.API_PREFIX}weather?id=${id}${this.API_SUFIX}`);
+    }
+
+    private requestCitiesInfo(): Observable<City[]> {
+        return this.http.get<City[]>(this.CITIES_INFO_URL);
     }
 
     private updateCurrentCityWeather(weather: Weather): void {

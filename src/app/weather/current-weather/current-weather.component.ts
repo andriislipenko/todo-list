@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Weather } from '../entities/weather';
-import { WeatherService } from '../weather.service';
 
 @Component({
     selector: 'app-current-weather',
