@@ -3,8 +3,8 @@
     </ng-container>
 
     <ng-template #regular>
-        <div class="p-col-2 p-md-1 align-center">
-            <input type="checkbox" class="ui-chkbox todo-checkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
+        <div class="p-col-2 p-md-1 align-center justify-center">
+            <input type="checkbox" class="ui-chkbox" [checked]="todo.isDone" (click)="toggleDone(todo)">
         </div>
 
         <div class="p-col-6 p-md-8 align-center todo-text-container" 
@@ -16,7 +16,7 @@
             <i class="fa fa-pencil edit-icon" [ngClass]="{'hidden': !isHover}"></i>
         </div>
 
-        <div class="p-col-3 p-md-2 align-center">
+        <div class="p-col-3 p-md-2 align-center justify-center">
             <span class="todo-date">{{todo.lastEditDate | date : "HH:mm MM/dd/yy" }}</span>
         </div>
 

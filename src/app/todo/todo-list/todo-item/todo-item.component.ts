@@ -22,17 +22,17 @@ export class TodoItemComponent {
         private confirmService: ConfirmationService
     ) {}
 
-    editTodo(id: string): void {
+    public editTodo(id: string): void {
         this.edit.emit(id);
         this.isHover = false;
     }
 
-    updateTodo(text: string): void {
+    public updateTodo(text: string): void {
         this.todoService.updateTodo(this.todoOnEditId, text);
         this.finishEditing();
     }
 
-    deleteTodo(todo: Todo): void {
+    public deleteTodo(todo: Todo): void {
         this.confirmService.confirm({
             message: 'Are you shure to delete this ToDo item?',
             key: todo.id,
@@ -42,11 +42,11 @@ export class TodoItemComponent {
         });
     }
 
-    toggleDone(todo: Todo): void {
+    public toggleDone(todo: Todo): void {
         this.todoService.toggleDone(todo);
     }
 
-    finishEditing(): void {
+    public finishEditing(): void {
         this.edit.emit('');
     }
 }

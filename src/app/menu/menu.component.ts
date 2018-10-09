@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit {
         private weatherService: WeatherService
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.items = [
             { label: this.TODO_TITLE, routerLink: '/todo' },
             { label: this.WEATHER_TITLE, routerLink: '/weather' }

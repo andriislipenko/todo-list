@@ -17,15 +17,12 @@ $background-color: #eaedfd;
     border-top-right-radius: $border-radius $border-rounding;
     border-bottom-right-radius: $border-radius $border-rounding;
 
-    .todo-checkbox {
-        margin-left: 15px;
-    }
-
     .todo-text-container {
         cursor: pointer;
         padding: 0px;
 
         .todo-text {
+            text-align: left;
             font-size: 14pt;
             color: #383841;
             margin: 0.6em 0em;

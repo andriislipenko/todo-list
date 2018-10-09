@@ -5,7 +5,6 @@ import { WeatherComponent } from './weather.component';
 import { RouterModule } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { FiveDaysWeatherComponent } from './five-days-weather/five-days-weather.component';
 
@@ -15,16 +14,12 @@ import { FiveDaysWeatherComponent } from './five-days-weather/five-days-weather.
         HttpClientModule,
         RouterModule,
         AutoCompleteModule,
-        FormsModule,
-        ButtonModule
+        FormsModule
     ],
     declarations: [
         WeatherComponent,
         CurrentWeatherComponent,
         FiveDaysWeatherComponent
-    ],
-    exports: [
-        WeatherComponent
     ]
 })
 export class WeatherModule { }
