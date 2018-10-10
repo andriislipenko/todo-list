@@ -11,6 +11,7 @@ import { ObservableInput } from 'rxjs/internal/types';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-weather',
@@ -27,10 +28,14 @@ export class WeatherComponent implements OnInit {
     public isGeo = false;
     public errorMessage: string = null;
 
-    constructor(private weatherService: WeatherService) {}
+    constructor(
+        private weatherService: WeatherService,
+        private titleService: Title
+    ) {}
 
     ngOnInit() {
         this.getWeather();
+        this.titleService.setTitle('Weather');
     }
 
     public getWeather(): void {
