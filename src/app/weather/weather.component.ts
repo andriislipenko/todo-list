@@ -26,6 +26,7 @@ export class WeatherComponent implements OnInit {
     public searchResults: City[];
 
     public isGeo = false;
+    public canRefresh = true;
     public errorMessage: string = null;
 
     constructor(
@@ -103,6 +104,16 @@ export class WeatherComponent implements OnInit {
                     return item;
                 });
             });
+    }
+
+    public refresh(): void {
+        this.weatherService.getFreshWeather().subscribe((weather: Weather) => {
+            this.weather = weather;
+            this.getFiveDaysForecastById(this.weather.id);
+        });
+
+        this.canRefresh = false;
+        setTimeout(() => this.canRefresh = true, 1000 * 60);
     }
 
     private getCurrentCity(): void {

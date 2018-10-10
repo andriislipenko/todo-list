@@ -8,6 +8,12 @@
             <a class="option-link" (click)='getWeatherByLocation()'>
                 <i class="fa fa-arrow-left option-icon"></i><span>To local</span>
             </a>
+            <span class="option-link">
+                <button [disabled]='!canRefresh' (click)="refresh()" class="refresh-button">
+                    <i class="fa fa-refresh option-icon"></i><span>Refresh</span> 
+                    </button>
+            </span>
+
         </div>
     </div>
 
@@ -20,7 +26,7 @@
         </ng-template>
 
         <ng-template #regular>
-            <app-current-weather [weather]="weather" [isGeo]='isGeo'></app-current-weather>
+            <app-current-weather [weather]="weather" [isGeo]="isGeo"></app-current-weather>
             <hr>
             <app-five-days-weather [fiveDaysWeather]="fiveDaysWeather"></app-five-days-weather>
         </ng-template>

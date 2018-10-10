@@ -10,6 +10,27 @@
             color: #949496;
             cursor: pointer;
 
+            .refresh-button {
+                font-size: 12pt;
+                margin: 0px;
+                padding: 0px;
+                border: none;
+                background: none;
+                color: #016ec2;
+                cursor: pointer;
+                margin-left: 15px;
+                transition: 1s linear;
+            }
+
+            .refresh-button:disabled {
+                border: none;
+                background: none;
+                color: #949496;
+                cursor: pointer;
+                text-decoration-line: line-through;
+                transition: none;
+            }
+
             .option-icon { 
                 margin-right: 5px;
             }

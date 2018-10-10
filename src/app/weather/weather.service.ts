@@ -114,6 +114,22 @@ export class WeatherService {
         );
     }
 
+    public getFreshWeather(): Observable<Weather> {
+        this.currentFiveDaysWeather = null;
+
+        if (this.currentLocalWeather) {
+            this.currentLocalWeather = null;
+            return this.getWeatherByLocation();
+        }
+
+        if (this.currentCityWeather) {
+            const id = this.currentCityWeather.id;
+
+            this.currentCityWeather = null;
+            return this.getWeatherById(id);
+        }
+    }
+
     public getCurrentTemperature(): Observable<number> {
         if (!this.currentCityWeather && !this.currentLocalWeather) {
             this.getWeatherByLocation().subscribe((weather: Weather) => {

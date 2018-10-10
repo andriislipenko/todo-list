@@ -9,6 +9,7 @@ import { Weather } from '../entities/weather';
 export class CurrentWeatherComponent {
     @Input() weather: Weather;
     @Input() isGeo: boolean;
+    @Input() canRefresh: boolean;
 
     constructor() {}
 }
