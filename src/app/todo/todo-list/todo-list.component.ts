@@ -11,7 +11,7 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class TodoListComponent implements OnInit {
     public todoOnEditId: string = null;
-    public isCollapsed = true;
+    public isCollapsed = false;
 
     private _todoList: Todo[] = null;
 

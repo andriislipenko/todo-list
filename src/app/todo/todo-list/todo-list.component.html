@@ -20,7 +20,7 @@
         </div>
         
         <div *ngIf="todo.isDone">
-            <div class="collapsed" [ngClass]="{'uncollapsed': !isCollapsed}">
+            <div class="uncollapsed" [ngClass]="{'collapsed': isCollapsed}">
                 <app-todo-item 
                     [todo]="todo" [todoOnEditId]='todoOnEditId' (edit)='setTodoOnEditId($event)'>
                 </app-todo-item>
