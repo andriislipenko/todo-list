@@ -10,6 +10,8 @@ import { from } from 'rxjs/internal/observable/from';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
+import { FiveDaysWeather } from './entities/five-days-weather';
 
 @Injectable({
     providedIn: 'root'
@@ -21,30 +23,62 @@ export class WeatherService {
     private API_SUFIX = `&units=${this.UNIT}${this.API_KEY}`;
     private CITIES_INFO_URL = 'assets/current.city.list.min.json';
 
-    public currentCityWeather: Weather = null;
+    private _currentLocalWeather: Weather = null;
+    private _currentCityWeather: Weather = null;
+    private _currentFiveDaysWeather: FiveDaysWeather = null;
+
     public currentTemperature = new Subject<number>();
 
     constructor(private http: HttpClient) {}
 
     public getWeatherByLocation(): Observable<any> {
+        if (this.currentLocalWeather && !this.isHourPassed(this.currentLocalWeather.dt * 1000)) {
+            this.updateCurrentTemperature(this.currentLocalWeather.main.temp);
+            return of(this.currentLocalWeather);
+        }
+
         return from(this.getPosition()).pipe(
             catchError((e: PositionError) => {
                 throw new Error('You denied goelocation!!!');
             }),
-            switchMap((position: Coordinates) => this.requestLocalWeather(position))
+            switchMap((position: Coordinates) => {
+                return this.requestLocalWeather(position).pipe(
+                    tap((weather: Weather) => {
+                        this.currentLocalWeather = weather;
+                        this.updateCurrentTemperature(this.currentLocalWeather.main.temp);
+
+                        this.currentCityWeather = null;
+                    })
+                );
+            })
         );
     }
 
     public getWeatherById(id: number): Observable<Weather> {
-        return this.requestWeatherById(id).pipe(switchMap((weather: Weather) => {
-            this.updateCurrentCityWeather(weather);
-            return of(weather);
-        }));
+        if (this.currentCityWeather &&
+            this.currentCityWeather.id === id &&
+            !this.isHourPassed(this.currentCityWeather.dt * 1000)
+        ) {
+            this.updateCurrentTemperature(this.currentCityWeather.main.temp);
+            return of(this.currentCityWeather);
+        }
+
+        return this.requestWeatherById(id).pipe(
+            tap((weather: Weather) => {
+                this.currentCityWeather = weather;
+                this.updateCurrentTemperature(this.currentCityWeather.main.temp);
+                this.currentLocalWeather = null;
+            })
+        );
 
     }
 
     public getFiveDaysForecastById(id: number): Observable<any> {
-        return this.http.get(`${this.API_PREFIX}forecast?id=${id}${this.API_SUFIX}`);
+        return this.http.get(`${this.API_PREFIX}forecast?id=${id}${this.API_SUFIX}`).pipe(
+            tap((weather: FiveDaysWeather) => {
+                this.currentFiveDaysWeather = weather;
+            })
+        );
     }
 
     public searchCity(term: string): Observable<City[]> {
@@ -74,7 +108,7 @@ export class WeatherService {
     }
 
     public getCurrentTemperature(): Observable<number> {
-        if (!this.currentCityWeather) {
+        if (!this.currentCityWeather && !this.currentLocalWeather) {
             this.getWeatherByLocation().subscribe((weather: Weather) => {
                 this.updateCurrentTemperature(weather.main.temp);
             });
@@ -99,11 +133,6 @@ export class WeatherService {
         return this.http.get<City[]>(this.CITIES_INFO_URL);
     }
 
-    private updateCurrentCityWeather(weather: Weather): void {
-        this.currentCityWeather = weather;
-        this.updateCurrentTemperature(this.currentCityWeather.main.temp);
-    }
-
     private updateCurrentTemperature(temperature: number): void {
         this.currentTemperature.next(temperature);
     }
@@ -122,5 +151,51 @@ export class WeatherService {
                 }
             );
         });
+    }
+
+    private isHourPassed(miliseconds: number): boolean {
+        return (new Date().getTime() - miliseconds) > (1000 * 60 * 60);
+    }
+
+    set currentLocalWeather(weather: Weather) {
+        this._currentLocalWeather = weather;
+        localStorage.setItem('currentLocalWeather', JSON.stringify(this._currentLocalWeather));
+    }
+
+    get currentLocalWeather(): Weather {
+        const localWeatherString = localStorage.getItem('currentLocalWeather');
+        if (!localWeatherString) {
+            return null;
+        }
+        this._currentLocalWeather = JSON.parse(localWeatherString);
+        return this._currentLocalWeather;
+    }
+
+    set currentCityWeather(weather: Weather) {
+        this._currentCityWeather = weather;
+        localStorage.setItem('currentCityWeather', JSON.stringify(this._currentCityWeather));
+    }
+
+    get currentCityWeather(): Weather {
+        const cityWeatherString = localStorage.getItem('currentCityWeather');
+        if (!cityWeatherString) {
+            return null;
+        }
+        this._currentCityWeather = JSON.parse(cityWeatherString);
+        return this._currentCityWeather;
+    }
+
+    set currentFiveDaysWeather(weather: FiveDaysWeather) {
+        this._currentFiveDaysWeather = weather;
+        localStorage.setItem('currentFiveDaysWeather', JSON.stringify(this._currentFiveDaysWeather));
+    }
+
+    get currentFiveDaysWeather(): FiveDaysWeather {
+        const fiveDaysWeatherString = localStorage.getItem('currentFiveDaysWeather');
+        if (!fiveDaysWeatherString) {
+            return null;
+        }
+        this._currentFiveDaysWeather = JSON.parse(fiveDaysWeatherString);
+        return this._currentFiveDaysWeather;
     }
 }

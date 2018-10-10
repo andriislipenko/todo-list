@@ -20,7 +20,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class WeatherComponent implements OnInit {
     public weather: Weather;
-    public fiveDaysWeather: FiveDaysWeather;
+    private _fiveDaysWeather: FiveDaysWeather;
 
     public city: City = new City();
     public searchResults: City[];
@@ -34,17 +34,18 @@ export class WeatherComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getWeather();
         this.titleService.setTitle('Weather');
+        this.getWeather();
     }
 
     public getWeather(): void {
-        if (!this.weatherService.currentCityWeather) {
-            this.getWeatherByLocation();
-        } else {
+        if (this.weatherService.currentCityWeather) {
             this.getWeatherById(this.weatherService.currentCityWeather.id);
             this.getCurrentCity();
+            return;
         }
+
+        this.getWeatherByLocation();
     }
 
     public getWeatherByLocation(): void {
@@ -62,6 +63,7 @@ export class WeatherComponent implements OnInit {
                 this.weather = weather;
                 this.getFiveDaysForecastById(this.weather.id);
                 this.isGeo = true;
+                this.city = null;
             });
     }
 
@@ -77,6 +79,14 @@ export class WeatherComponent implements OnInit {
             this.isGeo = false;
             this.errorMessage = null;
         });
+    }
+
+    public getFiveDaysForecastById(id: number): void {
+        this.weatherService
+            .getFiveDaysForecastById(id)
+            .subscribe((weather: FiveDaysWeather) => {
+                this.fiveDaysWeather = weather;
+            });
     }
 
     public search(event: WeatherSearchEvent): void {
@@ -95,15 +105,6 @@ export class WeatherComponent implements OnInit {
             });
     }
 
-    public getFiveDaysForecastById(id: number): void {
-        this.weatherService
-            .getFiveDaysForecastById(id)
-            .subscribe((weather: FiveDaysWeather) => {
-                this.fiveDaysWeather = weather;
-                this.cutFiveDaysForecastList();
-            });
-    }
-
     private getCurrentCity(): void {
         this.weatherService.searchCityById(this.weatherService.currentCityWeather.id).subscribe((city: City) => {
             this.city = city;
@@ -111,10 +112,19 @@ export class WeatherComponent implements OnInit {
         });
     }
 
-    private cutFiveDaysForecastList(): void {
-        const count = this.fiveDaysWeather.cnt;
+    set fiveDaysWeather(weather: FiveDaysWeather) {
+        this._fiveDaysWeather = weather;
+        this.cutFiveDaysForecastList();
+    }
 
-        this.fiveDaysWeather.list = this.fiveDaysWeather.list.filter(
+    get fiveDaysWeather(): FiveDaysWeather {
+        return this._fiveDaysWeather;
+    }
+
+    private cutFiveDaysForecastList(): void {
+        const count = this._fiveDaysWeather.cnt;
+
+        this._fiveDaysWeather.list = this._fiveDaysWeather.list.filter(
             (el: FiveDaysWeatherListItem, index: number) => {
                 return (index + 1) % Math.round(count / 5) === 0;
             }

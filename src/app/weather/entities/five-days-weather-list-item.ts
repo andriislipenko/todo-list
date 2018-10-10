@@ -1,5 +1,5 @@
 export class FiveDaysWeatherListItem {
-    dt: Date | number;
+    dt: number;
     main: { temp: number };
     weather: { main: string }[];
 }

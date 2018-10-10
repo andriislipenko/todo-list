@@ -40,12 +40,26 @@ export class MenuComponent implements OnInit {
     }
 
     private getCurrentTemperature(): void {
+        if (this.weatherService.currentLocalWeather) {
+            this.generateWeatherTitle(this.weatherService.currentLocalWeather.main.temp);
+            return;
+        }
+
+        if (this.weatherService.currentCityWeather) {
+            this.generateWeatherTitle(this.weatherService.currentCityWeather.main.temp);
+            return;
+        }
+
         this.weatherService
             .getCurrentTemperature()
             .subscribe((temperature: number) => {
-                this.items.find((item: MenuItem) => {
-                    return item.label.includes(this.WEATHER_TITLE);
-                }).generatedLabelPart = `${Math.round(temperature)}\u2103`;
+                this.generateWeatherTitle(temperature);
             });
+    }
+
+    private generateWeatherTitle(temperature: number) {
+        this.items.find((item: MenuItem) => {
+            return item.label.includes(this.WEATHER_TITLE);
+        }).generatedLabelPart = `${Math.round(temperature)}\u2103`;
     }
 }
