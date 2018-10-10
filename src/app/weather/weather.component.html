@@ -4,6 +4,11 @@
         <p-autoComplete [(ngModel)]="city" [suggestions]="searchResults" (onSelect)="getWeatherById(city.id)"
             (completeMethod)="search($event)" field="name" placeholder="Search">
         </p-autoComplete>
+        <div class="search-options-container">
+            <a class="option-link" (click)='getWeatherByLocation()'>
+                <i class="fa fa-arrow-left option-icon"></i><span>To local</span>
+            </a>
+        </div>
     </div>
 
     <div class="p-col-12 p-md-8">

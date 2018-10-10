@@ -2,22 +2,29 @@
     max-width: 800px;
     margin: auto;
     padding-top: 30px;
-}
+    
+    .search-options-container {
+        margin-top: 10px;
 
-.search-result {
-    cursor: pointer;
-    border-radius: 5px;
-}
+        .option-link {
+            color: #949496;
+            cursor: pointer;
 
-.search-result:hover {
-    background-color: #a8cbf8;
-    border: 3px outset #a4c7f5;
-}
+            .option-icon { 
+                margin-right: 5px;
+            }
+        }
 
-.error {
-    font-size: 18pt;
-    text-transform: uppercase;
-    color: rgb(221, 79, 79);
+        .option-link:hover {
+            text-decoration-line: underline;
+        }
+    }
+
+    .error {
+        font-size: 18pt;
+        text-transform: uppercase;
+        color: rgb(221, 79, 79);
+    }
 }
 
 
