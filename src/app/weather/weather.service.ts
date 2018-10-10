@@ -74,6 +74,13 @@ export class WeatherService {
     }
 
     public getFiveDaysForecastById(id: number): Observable<any> {
+        if (this.currentFiveDaysWeather &&
+            this.currentFiveDaysWeather.city.id === id &&
+            !this.isHourPassed(this.currentFiveDaysWeather.list[0].dt * 1000)
+        ) {
+            return of(this.currentFiveDaysWeather);
+        }
+
         return this.http.get(`${this.API_PREFIX}forecast?id=${id}${this.API_SUFIX}`).pipe(
             tap((weather: FiveDaysWeather) => {
                 this.currentFiveDaysWeather = weather;
