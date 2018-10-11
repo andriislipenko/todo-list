@@ -10,8 +10,8 @@
     </div>
 
     <div class="p-col-12 p-md-12">
-        <textarea pInputTextarea rows="3"
-            formControlName="feedback" placeholder="Feedback" class="feedback" required autoResize="autoResize"></textarea>
+        <textarea pInputTextarea rows="5"
+            formControlName="feedback" placeholder="Feedback" class="feedback" required></textarea>
     </div>
 
     <div class="p-col-12 p-md-12">
@@ -24,7 +24,7 @@
 
 
     <div class="p-col-12 p-md-12">
-        <p-checkbox label="I understand all the consequences of leaving the feedback!" 
+        <p-checkbox label="I understand all the consequences of leaving the feedback here!" 
             binary="true" [formControl]="feedbackForm.controls['agreement']" 
             class="agreement justify-left align-center"></p-checkbox>
     </div>

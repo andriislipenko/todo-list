@@ -3,6 +3,6 @@
         <span class="feedback-author">{{feedback.lastName}} {{feedback.firstName}}</span>
     </div>
     <div class="p-col-12 feedback-text">
-        <span>{{feedback.feedback}}</span>
+        <span [innerHTML]="feedback.feedback"></span>
     </div>
 </div>
