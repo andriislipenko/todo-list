@@ -1,0 +1,31 @@
+<div class="p-grid p-justify-center">
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <div class="p-col-12 p-md-6">
+            <input type="text" pInputText placeholder="First name"
+                formControlName="firstName"/>
+        </div>
+    
+        <div class="p-col-12 p-md-6">
+            <input type="text" pInputText placeholder="Last name"
+                formControlName="lastName"/>
+        </div>
+    
+        <div class="p-col-12 p-md-12">
+            <textarea pInputTextarea formControlName="feedback"></textarea>
+        </div>
+    
+        <div class="p-col-12 p-md-12 justify-left">
+            <p-radioButton name="gender" formControlName="gender" label="Male" value="male"></p-radioButton>
+            <p-radioButton name="gender" formControlName="gender" label="Female" value="female"></p-radioButton>
+        </div>
+    
+        <div class="p-col-12 p-md-12 justify-left">
+            <p-checkbox label="I understand all the consequences of leaving the feedback!" 
+                binary="true" [formControl]="feedbackForm.controls['agreement']"></p-checkbox>
+        </div>
+
+        <div class="p-col-12 p-md-12 justify-left">
+            <button pButton type="submit" label="Save"></button> 
+        </div>
+    </form>
+</div>

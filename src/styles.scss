@@ -8,11 +8,18 @@ body {
 }
 
 .justify-center {
+    display: flex;
     justify-content: center;
 }
 
 .justify-right {
+    display: flex;
     justify-content: right;
+}
+
+.justify-left {
+    display: flex;
+    justify-content: left;
 }
 
 .align-center {
