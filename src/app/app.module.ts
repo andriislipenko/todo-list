@@ -5,6 +5,7 @@ import { RoutingModule } from './routing.module';
 import { TodoModule } from './todo/todo.module';
 import { WeatherModule } from './weather/weather.module';
 import { MenuComponent } from './menu/menu.component';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { MenuComponent } from './menu/menu.component';
         BrowserModule,
         RoutingModule,
         TodoModule,
-        WeatherModule
+        WeatherModule,
+        FeedbackModule
     ],
     providers: [],
     bootstrap: [ AppComponent ]

@@ -11,6 +11,7 @@ import { MenuItem } from './menu';
 export class MenuComponent implements OnInit {
     public readonly TODO_TITLE = 'Tasks';
     public readonly WEATHER_TITLE = 'Weather';
+    public readonly FEEDBACK_TITLE = 'Feedback';
 
     public items: MenuItem[];
 
@@ -22,7 +23,8 @@ export class MenuComponent implements OnInit {
     public ngOnInit(): void {
         this.items = [
             { label: this.TODO_TITLE, routerLink: '/todo' },
-            { label: this.WEATHER_TITLE, routerLink: '/weather' }
+            { label: this.WEATHER_TITLE, routerLink: '/weather' },
+            { label: this.FEEDBACK_TITLE, routerLink: '/feedback'}
         ];
 
         this.getTodosAmount();
@@ -33,7 +35,7 @@ export class MenuComponent implements OnInit {
         this.todoService.getTodosAmount().subscribe((amount: number) => {
             this.items.find((item: MenuItem) => {
                 return item.label.includes(this.TODO_TITLE);
-            }).generatedLabelPart = amount;
+            }).generatedLabelPart = `: ${amount}`;
         });
 
         this.todoService.getTodoList();
@@ -60,6 +62,6 @@ export class MenuComponent implements OnInit {
     private generateWeatherTitle(temperature: number) {
         this.items.find((item: MenuItem) => {
             return item.label.includes(this.WEATHER_TITLE);
-        }).generatedLabelPart = `${Math.round(temperature)}\u2103`;
+        }).generatedLabelPart = `: ${Math.round(temperature)}\u2103`;
     }
 }
