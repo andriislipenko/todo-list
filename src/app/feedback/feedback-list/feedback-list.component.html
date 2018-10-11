@@ -1,3 +1,5 @@
-<p>
-  feedback-list works!
-</p>
+<div class="p-grid p-justify-center" *ngFor="let feedback of feedbacks">
+    <div class="p-col-12">
+        <app-feedback-item [feedback]="feedback"></app-feedback-item>
+    </div>
+</div>

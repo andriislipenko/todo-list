@@ -10,6 +10,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ButtonModule} from 'primeng/button';
+import { FeedbackItemComponent } from './feedback-list/feedback-item/feedback-item.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import {ButtonModule} from 'primeng/button';
     declarations: [
         FeedbackComponent,
         FeedbackFormComponent,
-        FeedbackListComponent
+        FeedbackListComponent,
+        FeedbackItemComponent
     ]
 })
 export class FeedbackModule {}

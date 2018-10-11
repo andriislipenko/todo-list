@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { FeedbackService } from '../feedback.service';
 
 @Component({
     selector: 'app-feedback-form',
@@ -15,11 +16,11 @@ export class FeedbackFormComponent implements OnInit {
         agreement: new FormControl(false)
     });
 
-    constructor() {}
+    constructor(private feedbackService: FeedbackService) {}
 
     ngOnInit() {}
 
     public onSubmit(): void {
-        console.log(this.feedbackForm.value);
+        this.feedbackService.saveFeedback(this.feedbackForm.value);
     }
 }
