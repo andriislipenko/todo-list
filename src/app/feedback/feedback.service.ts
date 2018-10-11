@@ -14,12 +14,16 @@ export class FeedbackService {
     constructor() {}
 
     public getFeedbacks(): Observable<Feedback[]> {
+        this.updateFeedbacks();
         return this.feedbacksSubject.asObservable();
     }
 
     public saveFeedback(feedback: Feedback): void {
         this.feedbacks = this.feedbacks.concat(feedback);
+        this.updateFeedbacks();
+    }
 
+    private updateFeedbacks(): void {
         this.feedbacksSubject.next(this.feedbacks);
     }
 

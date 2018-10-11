@@ -1,40 +1,48 @@
-.input-text {
-    width: 90%;
-}
-
-.feedback {
-    width: 95%;
-}
-
-.gender {
-    margin-left: 4%;
-    margin-bottom: 30px;
+.form-container {
+    padding-right: 30px;
     
-    .gender-item {
-        margin-left: 15px;
+    textarea {
+        resize: none;
     }
-}
 
-.agreement {
-    margin-left: 4%;
-    text-align: left;
-}
-
-.submit {
-    text-align: right;
-    margin-right: 5%;
-    
-    button {
-        font-size: 13pt;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .feedback {
+    .input-text {
         width: 90%;
-    } 
+    }
+
+    .feedback {
+        width: 95%;
+    }
+
+    .gender {
+        margin-left: 4%;
+        margin-bottom: 30px;
+
+        .gender-item {
+            margin-left: 15px;
+        }
+    }
+
+    .agreement {
+        margin-left: 4%;
+        text-align: left;
+    }
 
     .submit {
-        margin-right: 10%;
+        text-align: right;
+        margin-right: 5%;
+
+        button {
+            font-size: 13pt;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .feedback {
+            width: 90%;
+        }
+
+        .submit {
+            margin-right: 10%;
+        }
     }
 }

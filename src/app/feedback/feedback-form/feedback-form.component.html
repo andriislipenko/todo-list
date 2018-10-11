@@ -1,7 +1,7 @@
-<form class="p-grid p-justify-center" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+<form ngNativeValidate class="p-grid p-justify-center form-container" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
     <div class="p-col-12 p-md-6">
         <input type="text" pInputText placeholder="First name"
-            formControlName="firstName" class="input-text"/>
+            formControlName="firstName" class="input-text" required/>
     </div>
 
     <div class="p-col-12 p-md-6">
@@ -10,7 +10,8 @@
     </div>
 
     <div class="p-col-12 p-md-12">
-        <textarea pInputTextarea formControlName="feedback" placeholder="Feedback" class="feedback"></textarea>
+        <textarea pInputTextarea rows="3"
+            formControlName="feedback" placeholder="Feedback" class="feedback" required autoResize="autoResize"></textarea>
     </div>
 
     <div class="p-col-12 p-md-12">

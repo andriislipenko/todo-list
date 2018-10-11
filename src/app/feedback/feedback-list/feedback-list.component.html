@@ -1,5 +1,9 @@
-<div class="p-grid p-justify-center" *ngFor="let feedback of feedbacks">
-    <div class="p-col-12">
+<div class="p-grid p-justify-center feedback-container">
+    <div class="p-col-12 feedback-title">
+        <span>Feedbacks</span>
+    </div>
+
+    <div class="p-col-8 p-md-12" *ngFor="let feedback of feedbacks">
         <app-feedback-item [feedback]="feedback"></app-feedback-item>
     </div>
 </div>

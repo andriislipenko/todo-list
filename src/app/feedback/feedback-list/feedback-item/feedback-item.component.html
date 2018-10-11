@@ -1,3 +1,8 @@
-<p>
-  {{feedback.firstName}}
-</p>
+<div class="p-grid feedback-container">
+    <div class="p-col-12 justify-left feedback-author-container">
+        <span class="feedback-author">{{feedback.lastName}} {{feedback.firstName}}</span>
+    </div>
+    <div class="p-col-12 feedback-text">
+        <span>{{feedback.feedback}}</span>
+    </div>
+</div>
