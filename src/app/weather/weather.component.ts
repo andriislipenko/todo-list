@@ -137,7 +137,7 @@ export class WeatherComponent implements OnInit {
 
         this._fiveDaysWeather.list = this._fiveDaysWeather.list.filter(
             (el: FiveDaysWeatherListItem, index: number) => {
-                return (index + 1) % Math.round(count / 5) === 0;
+                return (index + 1) % Math.floor(count / 5) === 0;
             }
         );
     }
