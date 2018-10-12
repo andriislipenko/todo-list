@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 import { FeedbackService } from '../feedback.service';
 
 @Component({
@@ -8,6 +8,14 @@ import { FeedbackService } from '../feedback.service';
     styleUrls: ['./feedback-form.component.scss']
 })
 export class FeedbackFormComponent implements OnInit {
+    private readonly FEEDBACK_FROM_INIT_VALUE = {
+        firstName: '',
+        lastName: '',
+        feedback: '',
+        gender: 'male',
+        agreement: false
+    };
+
     public feedbackForm = this.fb.group({
         firstName: ['', [Validators.maxLength(25), this.containsText()]],
         lastName: ['', [Validators.maxLength(30)]],
@@ -15,6 +23,8 @@ export class FeedbackFormComponent implements OnInit {
         gender: ['male'],
         agreement: [false, Validators.requiredTrue]
     });
+
+    public validationErrors: {[key: string]: ValidationErrors} = {};
 
     constructor(
         private feedbackService: FeedbackService,
@@ -24,12 +34,15 @@ export class FeedbackFormComponent implements OnInit {
     ngOnInit() {}
 
     public onSubmit(): void {
+        if (this.feedbackForm.invalid) {
+            this.setErrors(this.feedbackForm);
+            console.log(this.validationErrors);
+            return;
+        }
+        this.validationErrors = {};
+
         this.feedbackService.saveFeedback(this.feedbackForm.value);
-        this.feedbackForm.reset();
-        this.feedbackForm.patchValue({
-            gender: 'male',
-            agreement: false
-        });
+        this.feedbackForm.reset(this.FEEDBACK_FROM_INIT_VALUE);
     }
 
     private containsText(): ValidatorFn {
@@ -38,19 +51,13 @@ export class FeedbackFormComponent implements OnInit {
         };
     }
 
-    get firstName(): AbstractControl {
-        return this.feedbackForm.get('firstName');
-    }
+    private setErrors(form: FormGroup): void {
+        this.validationErrors = {};
 
-    get lastName(): AbstractControl {
-        return this.feedbackForm.get('lastName');
-    }
-
-    get feedback(): AbstractControl {
-        return this.feedbackForm.get('feedback');
-    }
-
-    get agreement(): AbstractControl {
-        return this.feedbackForm.get('agreement');
+        for (const control in form.controls) {
+            if (form.controls.hasOwnProperty(control)) {
+                this.validationErrors[control] = form.controls[control].errors;
+            }
+        }
     }
 }

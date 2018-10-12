@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Feedback } from './entities/feedback';
 import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
