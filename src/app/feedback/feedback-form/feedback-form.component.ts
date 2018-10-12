@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { FeedbackService } from '../feedback.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { FeedbackService } from '../feedback.service';
 })
 export class FeedbackFormComponent implements OnInit {
     public feedbackForm = this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: [''],
-        feedback: ['', Validators.required],
+        firstName: ['', [Validators.maxLength(25), this.containsText()]],
+        lastName: ['', [Validators.maxLength(30)]],
+        feedback: ['', [Validators.maxLength(500), this.containsText()]],
         gender: ['male'],
-        agreement: [false]
+        agreement: [false, Validators.requiredTrue]
     });
 
     constructor(
@@ -30,5 +30,27 @@ export class FeedbackFormComponent implements OnInit {
             gender: 'male',
             agreement: false
         });
+    }
+
+    private containsText(): ValidatorFn {
+        return (control: AbstractControl): {[key: string]: any} | null => {
+            return control.value.trim() ? null : { 'containsText': true };
+        };
+    }
+
+    get firstName(): AbstractControl {
+        return this.feedbackForm.get('firstName');
+    }
+
+    get lastName(): AbstractControl {
+        return this.feedbackForm.get('lastName');
+    }
+
+    get feedback(): AbstractControl {
+        return this.feedbackForm.get('feedback');
+    }
+
+    get agreement(): AbstractControl {
+        return this.feedbackForm.get('agreement');
     }
 }

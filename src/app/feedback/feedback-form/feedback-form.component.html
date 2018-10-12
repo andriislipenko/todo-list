@@ -1,17 +1,39 @@
 <form ngNativeValidate class="p-grid p-justify-center form-container" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
     <div class="p-col-12 p-md-6">
         <input type="text" pInputText placeholder="First name"
-            formControlName="firstName" class="input-text" required/>
+            formControlName="firstName" class="input-text" required autofocus="true"/>
+        <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="errors-container">
+            <div *ngIf="firstName.errors.maxlength">
+                max length: {{firstName.errors.maxlength.requiredLength}}
+            </div>
+            <div *ngIf="firstName.errors.containsText">
+                name required
+            </div>
+        </div>
     </div>
 
     <div class="p-col-12 p-md-6">
         <input type="text" pInputText placeholder="Last name"
             formControlName="lastName" class="input-text"/>
+        <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="errors-container">
+            <div *ngIf="lastName.errors.maxlength">
+                max length: {{lastName.errors.maxlength.requiredLength}}
+            </div>
+        </div>
     </div>
 
     <div class="p-col-12 p-md-12">
         <textarea pInputTextarea rows="5"
             formControlName="feedback" placeholder="Feedback" class="feedback" required></textarea>
+            <div *ngIf="feedback.errors && (feedback.dirty || feedback.touched)" class="errors-container">
+                <div *ngIf="feedback.errors.containsText">
+                    feedback required
+                </div>
+                
+                <div *ngIf="feedback.errors.maxlength">
+                    max length: {{feedback.errors.maxlength.requiredLength}}
+                </div>
+            </div>    
     </div>
 
     <div class="p-col-12 p-md-12">
@@ -25,11 +47,19 @@
 
     <div class="p-col-12 p-md-12">
         <p-checkbox label="I understand all the consequences of leaving the feedback here!" 
-            binary="true" [formControl]="feedbackForm.controls['agreement']" 
-            class="agreement justify-left align-center"></p-checkbox>
+            binary="true" [formControl]="feedbackForm.controls['agreement']"
+            class="agreement justify-left align-center" required></p-checkbox>
+
+        <div *ngIf="agreement.errors" class="errors-container">
+            <div *ngIf="feedback.errors.containsText">
+                required
+            </div>
+        </div> 
     </div>
 
-    <div class="p-col-12 p-md-12 submit">
-        <button pButton type="submit" label="Save"></button> 
+    <div class="p-col-12 p-md-12 submit-container">
+        <button pButton type="submit"
+            label="Save"
+            [disabled]="feedbackForm.invalid"></button> 
     </div>
 </form>

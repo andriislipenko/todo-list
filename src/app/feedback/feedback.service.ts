@@ -19,7 +19,7 @@ export class FeedbackService {
     }
 
     public saveFeedback(feedback: Feedback): void {
-        feedback.feedback = feedback.feedback.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        // feedback.feedback = feedback.feedback.replace(/(?:\r\n|\r|\n)/g, '<br>');
         this.feedbacks = this.feedbacks.concat(feedback);
         this.updateFeedbacks();
     }

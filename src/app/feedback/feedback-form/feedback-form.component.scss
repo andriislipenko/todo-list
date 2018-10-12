@@ -27,12 +27,23 @@
         text-align: left;
     }
 
-    .submit {
+    .submit-container {
         text-align: right;
         margin-right: 5%;
 
         button {
             font-size: 13pt;
+        }
+    }
+
+    .errors-container {
+        text-align: left;
+        font-size: 10pt;
+        color: #cf2c2c;
+        padding-left: 15px;
+        
+        div {
+            padding-top: 5px; 
         }
     }
 
