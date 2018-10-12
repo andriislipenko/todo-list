@@ -15,6 +15,8 @@ export class MenuComponent implements OnInit {
 
     public items: MenuItem[];
 
+    public collapse = false;
+
     constructor(
         private todoService: TodoService,
         private weatherService: WeatherService
@@ -29,6 +31,10 @@ export class MenuComponent implements OnInit {
 
         this.getTodosAmount();
         this.getCurrentTemperature();
+    }
+
+    public toggleCollapse(): void {
+        this.collapse = !this.collapse;
     }
 
     private getTodosAmount(): void {

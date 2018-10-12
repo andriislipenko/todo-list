@@ -15,7 +15,7 @@
                 display: block;
                 padding: 0.5em 15px;
                 border: solid 1px #bdbdbd;
-                border-bottom: nonoe;
+                border-bottom: none;
                 border-top-left-radius: 3px;
                 border-top-right-radius: 3px;
                 background-color: #f3f2f2;
@@ -50,6 +50,41 @@
                 background-color: #016ec2;
             }
         }
+
+        .menu-item-bars {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .menu {
+            .menu-item {
+                display: none;
+                width: 100%;
+                clear: both;
+            }
+    
+            .menu-item-bars {
+                display: block;
+                float: left;
+
+                .menu-link-bars {
+                    display: block;
+                    padding: 0.5em 15px;
+                    border: solid 1px #bdbdbd;
+                    border-bottom: nonoe;
+                    border-top-left-radius: 3px;
+                    border-top-right-radius: 3px;
+                    background-color: #f3f2f2;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .uncollapsed {
+        .menu-item {
+            display: block;
+        }
     }
 }
-
