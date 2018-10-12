@@ -1,6 +1,6 @@
 <div class="p-grid feedback-container">
     <div class="p-col-12 justify-left feedback-author-container">
-        <span class="feedback-author">{{feedback.lastName}} {{feedback.firstName}}</span>
+        <span class="feedback-author" [ngClass]="{'man': feedback.gender === 'male', 'woman': feedback.gender === 'female'}">{{feedback.lastName}} {{feedback.firstName}}</span>
     </div>
     <div class="p-col-12 feedback-text">
         <span [innerHTML]="feedback.feedback"></span>
