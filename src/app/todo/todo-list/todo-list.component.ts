@@ -11,7 +11,7 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class TodoListComponent implements OnInit {
     public todoOnEditId: string = null;
-    public isCollapsed = false;
+    public isCollapsed: boolean = false;
 
     private _todoList: Todo[] = null;
 
@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit {
     public deleteDone(): void {
         this.confirmService.confirm({
             message: 'Are you shure to delete all done ToDos?',
-            accept: () => {
+            accept: (): void => {
                 this.todoService.deleteDone();
                 this.todoList = this.todoService.getTodoList();
             }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Feedback } from '../../entities/feedback';
 
 @Component({
@@ -6,10 +6,8 @@ import { Feedback } from '../../entities/feedback';
     templateUrl: './feedback-item.component.html',
     styleUrls: ['./feedback-item.component.scss']
 })
-export class FeedbackItemComponent implements OnInit {
+export class FeedbackItemComponent{
     @Input() feedback: Feedback;
 
     constructor() {}
-
-    ngOnInit() {}
 }

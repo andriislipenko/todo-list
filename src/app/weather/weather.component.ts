@@ -12,6 +12,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { Title } from '@angular/platform-browser';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
     selector: 'app-weather',
@@ -25,8 +26,8 @@ export class WeatherComponent implements OnInit {
     public city: City = new City();
     public searchResults: City[];
 
-    public isGeo = false;
-    public canRefresh = true;
+    public isGeo: boolean = false;
+    public canRefresh: boolean = true;
     public errorMessage: string = null;
 
     constructor(
@@ -34,7 +35,7 @@ export class WeatherComponent implements OnInit {
         private titleService: Title
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.titleService.setTitle('Weather');
         this.getWeather();
     }
@@ -54,9 +55,9 @@ export class WeatherComponent implements OnInit {
             .getWeatherByLocation()
             .pipe(
                 catchError(
-                    (e: any, caught: Observable<{}>): ObservableInput<{}> => {
+                    (e: Error, caught: Observable<{}>): ObservableInput<{}> => {
                         this.errorMessage = e.message;
-                        return e;
+                        return of(e);
                     }
                 )
             )

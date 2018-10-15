@@ -12,7 +12,7 @@ export class FeedbackListComponent implements OnInit {
 
     constructor(private feedbackService: FeedbackService) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getFeedbacks();
     }
 

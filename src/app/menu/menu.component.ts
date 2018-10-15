@@ -9,13 +9,13 @@ import { MenuItem } from './menu';
     styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-    public readonly TODO_TITLE = 'Tasks';
-    public readonly WEATHER_TITLE = 'Weather';
-    public readonly FEEDBACK_TITLE = 'Feedback';
+    public readonly TODO_TITLE: string = 'Tasks';
+    public readonly WEATHER_TITLE: string = 'Weather';
+    public readonly FEEDBACK_TITLE: string = 'Feedback';
 
     public items: MenuItem[];
 
-    public collapse = false;
+    public collapse: boolean = false;
 
     constructor(
         private todoService: TodoService,
@@ -65,7 +65,7 @@ export class MenuComponent implements OnInit {
         }
     }
 
-    private generateWeatherTitle(temperature: number) {
+    private generateWeatherTitle(temperature: number): void {
         this.items.find((item: MenuItem) => {
             return item.label.includes(this.WEATHER_TITLE);
         }).generatedLabelPart = `: ${Math.round(temperature)}\u2103`;

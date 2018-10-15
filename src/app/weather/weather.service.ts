@@ -17,21 +17,21 @@ import { FiveDaysWeather } from './entities/five-days-weather';
     providedIn: 'root'
 })
 export class WeatherService {
-    private UNIT = 'metric';
-    private API_KEY = '&APPID=965b3cabbaa3121b8043da6d5e373b79';
-    private API_PREFIX = 'https://api.openweathermap.org/data/2.5/';
-    private API_SUFIX = `&units=${this.UNIT}${this.API_KEY}`;
-    private CITIES_INFO_URL = 'assets/current.city.list.min.json';
+    private UNIT: string = 'metric';
+    private API_KEY: string = '&APPID=965b3cabbaa3121b8043da6d5e373b79';
+    private API_PREFIX: string = 'https://api.openweathermap.org/data/2.5/';
+    private API_SUFIX: string = `&units=${this.UNIT}${this.API_KEY}`;
+    private CITIES_INFO_URL: string = 'assets/current.city.list.min.json';
 
     private _currentLocalWeather: Weather = null;
     private _currentCityWeather: Weather = null;
     private _currentFiveDaysWeather: FiveDaysWeather = null;
 
-    public currentTemperature = new Subject<number>();
+    public currentTemperature: Subject<number> = new Subject<number>();
 
     constructor(private http: HttpClient) {}
 
-    public getWeatherByLocation(): Observable<any> {
+    public getWeatherByLocation(): Observable<Weather> {
         if (this.currentLocalWeather && !this.isHourPassed(this.currentLocalWeather.dt * 1000)) {
             this.updateCurrentTemperature(this.currentLocalWeather.main.temp);
             return of(this.currentLocalWeather);
@@ -73,7 +73,7 @@ export class WeatherService {
 
     }
 
-    public getFiveDaysForecastById(id: number): Observable<any> {
+    public getFiveDaysForecastById(id: number): Observable<FiveDaysWeather> {
         if (this.currentFiveDaysWeather &&
             this.currentFiveDaysWeather.city.id === id &&
             !this.isHourPassed(this.currentFiveDaysWeather.list[0].dt * 1000)
@@ -123,7 +123,7 @@ export class WeatherService {
         }
 
         if (this.currentCityWeather) {
-            const id = this.currentCityWeather.id;
+            const id: number = this.currentCityWeather.id;
 
             this.currentCityWeather = null;
             return this.getWeatherById(id);
@@ -148,8 +148,8 @@ export class WeatherService {
         );
     }
 
-    private requestWeatherById(id: number): Observable<any> {
-        return this.http.get(`${this.API_PREFIX}weather?id=${id}${this.API_SUFIX}`);
+    private requestWeatherById(id: number): Observable<Weather> {
+        return this.http.get<Weather>(`${this.API_PREFIX}weather?id=${id}${this.API_SUFIX}`);
     }
 
     private requestCitiesInfo(): Observable<City[]> {
@@ -161,7 +161,10 @@ export class WeatherService {
     }
 
     private getPosition(): Promise<Coordinates> {
-        return new Promise((res, rej) => {
+        return new Promise((
+                res: (value?: Coordinates | PromiseLike<Coordinates>) => void,
+                rej: (reasone?: PositionError) => void
+            ): void => {
             navigator.geolocation.getCurrentPosition(
                 (pos: Position) => {
                     res({
@@ -186,7 +189,7 @@ export class WeatherService {
     }
 
     get currentLocalWeather(): Weather {
-        const localWeatherString = localStorage.getItem('currentLocalWeather');
+        const localWeatherString: string = localStorage.getItem('currentLocalWeather');
         if (!localWeatherString) {
             return null;
         }
@@ -200,7 +203,7 @@ export class WeatherService {
     }
 
     get currentCityWeather(): Weather {
-        const cityWeatherString = localStorage.getItem('currentCityWeather');
+        const cityWeatherString: string = localStorage.getItem('currentCityWeather');
         if (!cityWeatherString) {
             return null;
         }
@@ -214,7 +217,7 @@ export class WeatherService {
     }
 
     get currentFiveDaysWeather(): FiveDaysWeather {
-        const fiveDaysWeatherString = localStorage.getItem('currentFiveDaysWeather');
+        const fiveDaysWeatherString: string = localStorage.getItem('currentFiveDaysWeather');
         if (!fiveDaysWeatherString) {
             return null;
         }

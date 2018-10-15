@@ -8,12 +8,12 @@ import { Subject } from 'rxjs/internal/Subject';
 })
 export class TodoService {
     public todoList: Todo[] = null;
-    public todosAmount = new Subject<number>();
+    public todosAmount: Subject<number> = new Subject<number>();
 
     constructor() {}
 
     public getTodoList(): Todo[] {
-        const todos = localStorage.getItem('todos');
+        const todos: string = localStorage.getItem('todos');
 
         if (todos) {
             this.todoList = this.parseTodos(todos);
@@ -34,7 +34,7 @@ export class TodoService {
     }
 
     public getTodo(id: string): Todo {
-        return this.todoList.find(el => el.id === id);
+        return this.todoList.find((el: Todo) => el.id === id);
     }
 
     public updateTodo(id: string, text: string): void {
@@ -42,7 +42,7 @@ export class TodoService {
             return;
         }
 
-        const todo = this.getTodo(id);
+        const todo: Todo = this.getTodo(id);
 
         todo.text = text;
         todo.lastEditDate = new Date();
@@ -69,7 +69,7 @@ export class TodoService {
 
         return todoList.sort((a: Todo, b: Todo) => {
             return b.lastEditDate.getTime() - a.lastEditDate.getTime();
-        }).sort((a, b) => {
+        }).sort((a: Todo, b: Todo) => {
             return +a.isDone - +b.isDone;
         });
     }
@@ -78,7 +78,7 @@ export class TodoService {
         return this.todosAmount.asObservable();
     }
 
-    public toggleDone(todo: Todo) {
+    public toggleDone(todo: Todo): void {
         todo.isDone = !todo.isDone;
         this.saveTodosToLocalStorage();
     }
@@ -92,7 +92,7 @@ export class TodoService {
     }
 
     private parseTodos(todos: string): Todo[] {
-        const res = JSON.parse(todos);
+        const res: Todo[] = JSON.parse(todos);
         for (const todo of res) {
             todo.lastEditDate = new Date(todo.lastEditDate);
         }

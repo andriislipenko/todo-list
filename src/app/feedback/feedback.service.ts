@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class FeedbackService {
     private _feedbacks: Feedback[] = [];
-    private feedbacksSubject = new BehaviorSubject<Feedback[]>(this.feedbacks);
+    private feedbacksSubject: BehaviorSubject<Feedback[]> = new BehaviorSubject<Feedback[]>(this.feedbacks);
 
     constructor() {}
 
@@ -32,7 +32,7 @@ export class FeedbackService {
     }
 
     private getFeedbacksFromLocalStorage(): Feedback[] {
-        const feedbacksString = localStorage.getItem('feedbacks');
+        const feedbacksString: string = localStorage.getItem('feedbacks');
 
         if (!feedbacksString) {
             this._feedbacks = [];

@@ -13,9 +13,9 @@ export class TodoItemComponent {
     @Input() todo: Todo = null;
     @Input() todoOnEditId: string = null;
 
-    @Output() edit = new EventEmitter();
+    @Output() edit: EventEmitter<string> = new EventEmitter<string>();
 
-    public isHover = false;
+    public isHover: boolean = false;
 
     constructor(
         private todoService: TodoService,
@@ -36,7 +36,7 @@ export class TodoItemComponent {
         this.confirmService.confirm({
             message: 'Are you shure to delete this ToDo item?',
             key: todo.id,
-            accept: () => {
+            accept: (): void => {
                 this.todoService.deleteTodo(todo);
             }
         });

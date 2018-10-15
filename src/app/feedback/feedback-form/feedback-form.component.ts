@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 import { FeedbackService } from '../feedback.service';
 
@@ -7,8 +7,8 @@ import { FeedbackService } from '../feedback.service';
     templateUrl: './feedback-form.component.html',
     styleUrls: ['./feedback-form.component.scss']
 })
-export class FeedbackFormComponent implements OnInit {
-    private readonly FEEDBACK_FROM_INIT_VALUE = {
+export class FeedbackFormComponent {
+    private readonly FEEDBACK_FROM_INIT_VALUE: {} = {
         firstName: '',
         lastName: '',
         feedback: '',
@@ -16,7 +16,7 @@ export class FeedbackFormComponent implements OnInit {
         agreement: false
     };
 
-    public feedbackForm = this.fb.group({
+    public feedbackForm: FormGroup = this.fb.group({
         firstName: ['', [Validators.maxLength(25), this.containsText()]],
         lastName: ['', [Validators.maxLength(30)]],
         feedback: ['', [Validators.maxLength(500), this.containsText()]],
@@ -31,12 +31,9 @@ export class FeedbackFormComponent implements OnInit {
         private fb: FormBuilder
     ) {}
 
-    ngOnInit() {}
-
     public onSubmit(): void {
         if (this.feedbackForm.invalid) {
             this.setErrors(this.feedbackForm);
-            console.log(this.validationErrors);
             return;
         }
         this.validationErrors = {};
@@ -46,7 +43,7 @@ export class FeedbackFormComponent implements OnInit {
     }
 
     private containsText(): ValidatorFn {
-        return (control: AbstractControl): {[key: string]: any} | null => {
+        return (control: AbstractControl): {[key: string]: string | boolean } | null => {
             return control.value.trim() ? null : { 'containsText': true };
         };
     }
